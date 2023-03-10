@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
-const routes: Routes = [];
+import {HeroSectionComponent} from "./components/hero-section/hero-section.component";
+const routes: Routes = [
+  { path: '',component: HeroSectionComponent}
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
