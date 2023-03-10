@@ -1,0 +1,55 @@
+.hero--section--container{
+  height: 100vh;
+  width: 100vw;
+  background-color: #dddddd;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+.hero--section--blob-left{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-image: url("/assets/hero/blobLeft.svg");
+  background-repeat: no-repeat;
+  background-position: left top;
+  background-size: 100% 100%;
+  transform: translateY(-50%);
+}
+@media (max-width: 767px) {
+  .hero--section--blob-left{
+    background-size: 100% 100%;
+  }
+  .hero--section--head-blob-right{
+    background-size: 33% auto;
+  }
+}
+
+.hero--section--head{
+  position: absolute;
+  top: 12%;
+  right: 12%;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background-image: url("/assets/hero/Head.png");
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: 50% 50%;
+}
+
+.hero--section--head-blob-right {
+  position: absolute;
+  top:0;
+  right: calc(5vw - 10%);
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-image: url("/assets/hero/blobRight.svg");
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: 100% 75%;
+}
