@@ -24,8 +24,23 @@
     box-shadow: none;
   }
 }
-.register--form--container-submit-button{
+
+.register--form--flex-box{
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+article div:nth-of-type(2) {
+  display: none;
+  background-color: #374956;
+  background-image: url("/assets/hero/Head.png");
+  background-position: center;
+  background-size: initial;
+}
+
+@media (min-width: 992px) {
+  .grid > div:nth-of-type(2) {
+    display: block;
+  }
 }

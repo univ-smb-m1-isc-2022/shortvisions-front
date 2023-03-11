@@ -15,7 +15,7 @@ import {
 @NgModule({
   declarations: [
     AppComponent,
-    TerminalCardComponent,
+    // TerminalCardComponent,
     HeroSectionComponent,
     NavbarComponent,
     ContentCardComponent,
@@ -29,6 +29,7 @@ import {
   providers: [],
   exports: [
     NavbarComponent,
+    // TerminalCardComponent,
 
   ],
   bootstrap: [AppComponent]
