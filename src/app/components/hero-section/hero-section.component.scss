@@ -1,4 +1,4 @@
-.hero--section--container{
+.hero--section--container {
   height: 100vh;
   width: 100vw;
   background-color: #dddddd;
@@ -6,12 +6,22 @@
   top: 0;
   left: 0;
 }
-.hero--section--blob-left{
+
+.hero--section--head {
+  right: 0;
+  bottom: 25%;
+  position: absolute;
+  display: block;
+  width: auto;
+  height: auto;
+}
+
+.hero--section--blob-left {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 112%;
   z-index: -1;
   background-image: url("/assets/hero/blobLeft.svg");
   background-repeat: no-repeat;
@@ -19,32 +29,11 @@
   background-size: 100% 100%;
   transform: translateY(-50%);
 }
-@media (max-width: 767px) {
-  .hero--section--blob-left{
-    background-size: 100% 100%;
-  }
-  .hero--section--head-blob-right{
-    background-size: 33% auto;
-  }
-}
-
-.hero--section--head{
-  position: absolute;
-  top: 12%;
-  right: 12%;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  background-image: url("/assets/hero/Head.png");
-  background-repeat: no-repeat;
-  background-position: right center;
-  background-size: 50% 50%;
-}
 
 .hero--section--head-blob-right {
   position: absolute;
-  top:0;
-  right: calc(5vw - 10%);
+  top: -10%;
+  right: calc(5vw - 18%);
   width: 100%;
   height: 100%;
   z-index: -1;
@@ -53,3 +42,96 @@
   background-position: right center;
   background-size: 100% 75%;
 }
+
+@media (max-width: 767px) {
+  .hero--section--blob-left {
+    background-size: 100% 100%;
+  }
+  .hero--section--head-blob-right {
+    background-size: 33% auto;
+  }
+  .hero--section--head {
+    bottom: 30%;
+    max-width: 330px;
+    max-height: 220px;
+  }
+}
+
+@media (min-width: 424px) and (max-width: 767px) {
+  .hero--section--blob-left {
+    background-size: 100% 100%;
+  }
+  .hero--section--head-blob-right {
+    background-size: 33% auto;
+  }
+  .hero--section--head {
+    bottom: 45%;
+    max-width: 330px;
+    max-height: 220px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .hero--section--blob-left {
+    background-size: 100% 100%;
+  }
+  .hero--section--head-blob-right {
+    background-size: 33% auto;
+  }
+  .hero--section--head {
+    bottom: 30%;
+    max-width: 460px;
+    max-height: 330px;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .hero--section--blob-left {
+    background-size: 100% 100%;
+  }
+  .hero--section--head-blob-right {
+    background-size: 33% auto;
+  }
+  .hero--section--head {
+    bottom: 30%;
+    max-width: 900px;
+    max-height: 400px;
+  }
+}
+
+@media (min-width: 1441px) {
+  .hero--section--blob-left {
+    background-size: 100% 100%;
+    width: 125%;
+    height: 150%;
+  }
+  .hero--section--head-blob-right {
+    background-size: 33% auto;
+    width: 75%;
+    height: 85%;
+  }
+  .hero--section--head {
+    bottom: 30%;
+    max-width: 950px;
+    max-height: 430px;
+  }
+
+}
+
+@media (min-width: 1919px) and (max-width: 4096px) {
+  .hero--section--blob-left {
+    background-size: 100% 100%;
+    width: 125%;
+    height: 150%;
+  }
+  .hero--section--head-blob-right {
+    background-size: 33% auto;
+  }
+  .hero--section--head {
+    bottom: 30%;
+    max-width: 1080px;
+    max-height: 480px;
+  }
+}
+
+
