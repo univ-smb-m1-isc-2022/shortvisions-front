@@ -1,3 +1,7 @@
+.content--description{
+  max-width: 325px;
+  color: azure;
+}
 .hero--section--container {
   height: 100vh;
   width: 100vw;
@@ -6,6 +10,29 @@
   top: 0;
   left: 0;
 }
+.content--discovery--button{
+  all: unset;
+  text-align: center;
+  width: 10vw;
+  padding: 12.5px 30px;
+  border: 0;
+  border-radius: 100px;
+  background-color: #fbfbfb;
+  color: #2ba8fb;
+  font-weight: Bold;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+  &:hover {
+    background-color: #6fc5ff;
+    box-shadow: 0 0 20px #6fc5ff50;
+  }
+  &:active {
+    background-color: #3d94cf;
+    transition: all 0.25s;
+    -webkit-transition: all 0.25s;
+    box-shadow: none;
+  }
+ }
 
 .hero--section--head {
   right: 0;
@@ -55,6 +82,12 @@
     max-width: 330px;
     max-height: 220px;
   }
+  .content--heading{
+    font-size: 1rem;
+  }
+  .content--description{
+    font-size: .5rem;
+  }
 }
 
 @media (min-width: 424px) and (max-width: 767px) {
@@ -83,6 +116,12 @@
     max-width: 460px;
     max-height: 330px;
   }
+  .content--description{
+    max-width: 320px;
+  }
+  .content--heading{
+    font-size: 1.33rem;
+  }
 }
 
 @media (min-width: 1025px) and (max-width: 1440px) {
@@ -96,6 +135,12 @@
     bottom: 30%;
     max-width: 900px;
     max-height: 400px;
+  }
+  .content--heading{
+    font-size: 1.33rem;
+  }
+  .content--description{
+    max-width: 320px;
   }
 }
 
@@ -115,7 +160,10 @@
     max-width: 950px;
     max-height: 430px;
   }
-
+  .content--heading{
+    font-size: 1.5rem;
+  }
+  .content--description{}
 }
 
 @media (min-width: 1919px) and (max-width: 4096px) {

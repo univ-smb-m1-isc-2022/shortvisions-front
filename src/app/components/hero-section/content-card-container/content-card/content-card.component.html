@@ -1,0 +1,15 @@
+<article>
+  <header>
+    <h1>{{this.content.head}}</h1>
+  </header>
+  <body>
+    {{this.content.body}}
+  </body>
+  <footer>
+    <div class="button--flex--container" >
+      <button *ngFor="let button of content.button;let i = index" [ngClass]="i==1? 'orange': ''">
+        {{button}}
+      </button>
+    </div>
+  </footer>
+</article>
