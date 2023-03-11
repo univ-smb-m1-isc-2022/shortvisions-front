@@ -1,11 +1,11 @@
-<article>
-  <header>
+<article class="inner--content--card">
+  <header class="inner--content--card-header">
     <h1>{{this.content.head}}</h1>
   </header>
-  <body>
+  <body class="inner--content--card-body">
     {{this.content.body}}
   </body>
-  <footer>
+  <footer class="inner--content--card-footer">
     <div class="button--flex--container" >
       <button *ngFor="let button of content.button;let i = index" [ngClass]="i==1? 'orange': ''">
         {{button}}
