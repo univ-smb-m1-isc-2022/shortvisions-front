@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {SignInUpService} from "../../services/signInUp/sign-in-up.service";
 import {Router} from "@angular/router";
 import {finalize} from "rxjs";
+import {User} from "../../models/user";
 
 @Component({
   selector: 'app-register',
@@ -17,6 +18,7 @@ export class RegisterComponent implements OnInit {
     confirmPassword: string,
   };
 
+  loading = false;
   constructor(private signInUpService: SignInUpService, private router: Router) {
   }
 
@@ -36,6 +38,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
+    this.loading = this.signInUpService.isLoading();
     this.signInUpService.registerUser(this.userData).pipe(
       finalize(() => {
         this.signInUpService.loading = false;
@@ -43,10 +46,19 @@ export class RegisterComponent implements OnInit {
     ).subscribe({
       next: async (data) => {
         console.log('RegisterComponent.onSubmit().next()', data);
+        const user = {
+          firstName: this.userData.firstName,
+          lastName: this.userData.lastName,
+          email: this.userData.email,
+          token: data
+        } as User;
+        this.signInUpService.setCurrentUser(user);
+        this.loading = this.signInUpService.isLoading();
         await this.router.navigate(['/dashboard']);
       },
       error: (error) => {
         console.log('RegisterComponent.onSubmit().error()', error);
+        this.loading = this.signInUpService.isLoading();
       }
     });
   }
