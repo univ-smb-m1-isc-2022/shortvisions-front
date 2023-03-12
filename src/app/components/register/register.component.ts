@@ -43,7 +43,7 @@ export class RegisterComponent implements OnInit {
     ).subscribe({
       next: async (data) => {
         console.log('RegisterComponent.onSubmit().next()', data);
-        await this.router.navigate(['/app']);
+        await this.router.navigate(['/dashboard']);
       },
       error: (error) => {
         console.log('RegisterComponent.onSubmit().error()', error);
