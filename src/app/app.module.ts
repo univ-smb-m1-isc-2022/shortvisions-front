@@ -11,6 +11,7 @@ import {
 import {
   ContentCardContainerComponent
 } from "./components/hero-section/content-card-container/content-card-container.component";
+import {PermissionsService, UserToken} from "./auth/auth.guard";
 
 @NgModule({
   declarations: [
@@ -26,11 +27,9 @@ import {
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [PermissionsService,UserToken],
   exports: [
     NavbarComponent,
-    // TerminalCardComponent,
-
   ],
   bootstrap: [AppComponent]
 })
