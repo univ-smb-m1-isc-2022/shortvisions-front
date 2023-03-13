@@ -1,5 +1,5 @@
 import {inject, Injectable} from "@angular/core";
-import {ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot} from "@angular/router";
+import {ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot} from "@angular/router";
 
 
 @Injectable()
@@ -14,8 +14,12 @@ import {ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot} from "@angul
 }
 @Injectable()
  export class PermissionsService {
+  constructor(private router: Router) {}
   canActivate(currentUser: UserToken): boolean {
     const token = currentUser.getToken();
+    if(!token){
+      this.router.navigate(['/']).then();
+    }
     return !!token;
   }
 }
