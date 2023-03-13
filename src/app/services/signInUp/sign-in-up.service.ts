@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
-import {finalize, Observable, tap} from "rxjs";
+import {finalize, Observable, switchMap, tap} from "rxjs";
 import {User} from "../../models/user";
 
 export const API_ROOT_URL = environment.ShortVision_API;
@@ -23,6 +23,9 @@ export class SignInUpService {
     this.loading = true;
     const body = {...userData};
     return this.http.post(API_ROOT_URL + this.registerPostFix, body).pipe(
+      switchMap((response: any) => {
+        return this.loginUser({email: userData.email, password: userData.password});
+      }),
       finalize(() => {
         this.loading = false;
       })

@@ -32,11 +32,6 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  submitButton() {
-    console.log('RegisterComponent.submitButton()', this);
-    this.signInUpService.registerUser(this.userData);
-  }
-
   onSubmit() {
     this.loading = this.signInUpService.isLoading();
     this.signInUpService.registerUser(this.userData).pipe(
