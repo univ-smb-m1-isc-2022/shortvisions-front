@@ -3,7 +3,9 @@
     <li>
       <img (click)="onIconClick()" class="nav--container--brand--section-logo" src="/assets/Icons/Icon.png" alt="shortVisionLogo"/>
       <strong>
-        <span class="nav--container--brand--section-vision">ShortVision</span>
+        <span [ngClass]="currentUrl == '/'? ('nav--container--brand--section-vision'):('')">
+          ShortVision
+        </span>
       </strong>
     </li>
   </ul>
