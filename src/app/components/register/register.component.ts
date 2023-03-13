@@ -45,7 +45,6 @@ export class RegisterComponent implements OnInit {
       })
     ).subscribe({
       next: async (data) => {
-        console.log('RegisterComponent.onSubmit().next()', data);
         const user = {
           firstName: this.userData.firstName,
           lastName: this.userData.lastName,

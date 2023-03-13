@@ -19,16 +19,16 @@ export class LoginComponent implements OnInit{
   constructor(private signInUpService:SignInUpService,private router:Router) { }
 
   ngOnInit(): void {
+    this.userData = {
+      email: '',
+      password: '',
+    }
   }
   onSubmit() {
     this.loading = this.signInUpService.isLoading();
-    this.signInUpService.loginUser(this.userData).pipe(
-      finalize(() => {
-        this.signInUpService.loading = false;
-      })
-    ).subscribe({
+    this.signInUpService.loginUser(this.userData).subscribe({
       next: async (data) => {
-        console.log('RegisterComponent.onSubmit().next()', data);
+        // console.log('RegisterComponent.onSubmit().next()', data);
         const user = {
           email: this.userData.email,
           token: data
