@@ -3,15 +3,15 @@ import {ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot} from
 
 
 @Injectable()
- export class UserToken {
+export class UserToken {
   constructor() {
   }
-
   getToken(): string | null {
     return localStorage.getItem('token');
   }
-
 }
+
+
 @Injectable()
  export class PermissionsService {
   constructor(private router: Router) {}
