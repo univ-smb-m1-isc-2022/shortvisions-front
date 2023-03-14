@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {environment} from "../../../environments/environment";
+import {environment} from "../../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {finalize, Observable, switchMap, tap} from "rxjs";
-import {User} from "../../models/user";
+import {User} from "../../../models/user";
 
 export const API_ROOT_URL = environment.ShortVision_API;
 

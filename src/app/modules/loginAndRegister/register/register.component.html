@@ -5,32 +5,35 @@
         <h1>Sign Up!</h1>
         <h2>You're a few minutes away of future !</h2>
       </hgroup>
-      <form #form class="register--form" (ngSubmit)="onSubmit()">
+      <form [formGroup]="registerForm" #form class="register--form" (ngSubmit)="onSubmit()">
         <div class="register--form--flex-box">
           <label for="firstname">
             First name
-            <input [(ngModel)]="userData.firstName" type="text" id="firstname" name="firstname" placeholder="First name"
+            <input formControlName="firstName" type="text" id="firstname" name="firstname" placeholder="First name"
                    required>
           </label>
           <label for="lastname">
             Last name
-            <input [(ngModel)]="userData.lastName" type="text" id="lastname" name="lastname" placeholder="Last name"
+            <input formControlName="lastName" type="text" id="lastname" name="lastname" placeholder="Last name"
                    required>
           </label>
           <label for="password">
             Password
-            <input [(ngModel)]="userData.password" type="password" id="password" name="password" placeholder="Password"
+            <input formControlName="password" type="password" id="password" name="password" placeholder="Password"
                    minlength="8" required>
           </label>
 
           <label for="password">
             Confirm Password
-            <input [(ngModel)]="userData.confirmPassword" type="password" id="password_confirmation" name="password"
+            <input formControlName="confirmPassword" type="password" id="password_confirmation" name="password"
                    placeholder="Password" minlength="8" required>
+            <small role="alert" *ngIf="registerForm.hasError('notSame') && (registerForm.get('confirmPassword')?.dirty || registerForm.get('confirmPassword')?.touched)">
+            Passwords do not match
+          </small>
           </label>
 
           <label for="email">Email address
-            <input [(ngModel)]="userData.email" type="email" id="email" name="email" placeholder="Email address"
+            <input formControlName="email" type="email" id="email" name="email" placeholder="Email address"
                    required>
             <small>We'll never share your email with anyone else.</small>
           </label>

@@ -3,10 +3,10 @@ import {CommonModule} from '@angular/common';
 import {RegisterComponent} from './register.component';
 import {RouterModule, Routes} from "@angular/router";
 import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
-import {TerminalCardComponent} from "../terminal-card/terminal-card.component";
+import {TerminalCardComponent} from "../../terminal-card/terminal-card.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
-import {SignInUpService} from "../../services/signInUp/sign-in-up.service";
+import {SignInUpService} from "../service/sign-in-up.service";
 
 const routes: Routes = [
   {path: '', component: RegisterComponent},

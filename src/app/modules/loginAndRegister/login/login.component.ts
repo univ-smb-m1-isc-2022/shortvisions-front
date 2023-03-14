@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {finalize} from "rxjs";
-import {User} from "../../models/user";
-import {SignInUpService} from "../../services/signInUp/sign-in-up.service";
+import {User} from "../../../models/user";
+import {SignInUpService} from "../service/sign-in-up.service";
 import {Router} from "@angular/router";
 
 @Component({
