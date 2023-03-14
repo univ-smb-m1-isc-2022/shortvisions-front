@@ -25,9 +25,21 @@ export class UserToken {
     }
     return !!token;
   }
+  canActivateLoginOrRegister(currentUser: UserToken): boolean {
+    const token = currentUser.getToken();
+    if(token){
+      this.router.navigate(['/dashboard']).then();
+    }
+    return !token;
+  }
 }
 
 export const canActivateTeam: CanActivateFn =
   (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
     return inject(PermissionsService).canActivate(inject(UserToken));
   };
+
+export const cannotActivateTeam: CanActivateFn =
+  (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
+    return inject(PermissionsService).canActivateLoginOrRegister(inject(UserToken));
+  }

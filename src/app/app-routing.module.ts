@@ -1,12 +1,12 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {HeroSectionComponent} from "./components/hero-section/hero-section.component";
-import {canActivateTeam} from "./auth/auth.guard";
+import {canActivateTeam, cannotActivateTeam} from "./auth/auth.guard";
 
 const routes: Routes = [
   {path: '', component: HeroSectionComponent},
-  {path: 'register', loadChildren: () => import('./components/register/register.module').then(m => m.RegisterModule)},
-  {path: 'login', loadChildren: () => import('./components/login/login.module').then(m => m.LoginModule)},
+  {path: 'register', loadChildren: () => import('./components/register/register.module').then(m => m.RegisterModule), canActivate: [cannotActivateTeam]},
+  {path: 'login', loadChildren: () => import('./components/login/login.module').then(m => m.LoginModule), canActivate: [cannotActivateTeam]},
   {path: 'dashboard', loadChildren: () => import('./components/dashboard/dashboard.module').then(m => m.DashboardModule), canActivate: [canActivateTeam]},
 ];
 

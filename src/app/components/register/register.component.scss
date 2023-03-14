@@ -30,6 +30,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  label {
+    max-width: 275px;
+  }
 }
 article div:nth-of-type(2) {
   display: none;
@@ -39,9 +42,7 @@ article div:nth-of-type(2) {
   background-size: initial;
 }
 
-label {
-  max-width: 275px;
-}
+
 @media (min-width: 992px) {
   .grid > div:nth-of-type(2) {
     display: block;
