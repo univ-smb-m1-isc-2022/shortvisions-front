@@ -10,7 +10,7 @@
     </li>
   </ul>
   <ul class="nav--container--ul">
-    <li><a class="nav--container--ul--link" routerLink="/login" href="#">Login</a></li>
+    <li *ngIf="!isUserLoggedIn" ><a class="nav--container--ul--link" routerLink="/login" href="#">Login</a></li>
     <li><a class="nav--container--ul--link" href="#">About</a></li>
     <li><a class="nav--container--ul--link" href="#">Contact</a></li>
   </ul>

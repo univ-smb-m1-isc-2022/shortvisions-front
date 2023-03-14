@@ -1,17 +1,18 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
-import {filter} from "rxjs";
-
+import {UserToken} from "../../auth/auth.guard";
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  currentUrl!: string|undefined;
-
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
+  currentUrl!: string | undefined;
+  isUserLoggedIn!: boolean;
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private userToken: UserToken) {
   }
+
+
   async onIconClick() {
     console.log("icon clicked")
     console.log(localStorage.getItem('token'))
@@ -24,15 +25,11 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.router.events.subscribe((event) => {
-      console.log(event)
       if (event instanceof NavigationEnd) {
         this.currentUrl = event.url;
-        console.log(this.currentUrl)
+        this.isUserLoggedIn = !!this.userToken.getToken()
       }
     });
-      this.currentUrl = this.router.url;
-      console.log(this.currentUrl)
+    this.currentUrl = this.router.url;
   }
-
-
 }
