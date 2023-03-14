@@ -1,7 +1,8 @@
 <nav class="container-fluid nav--container">
   <ul class="nav--container--brand--section">
     <li>
-      <img (click)="onIconClick()" class="nav--container--brand--section-logo" src="/assets/Icons/Icon.png" alt="shortVisionLogo"/>
+      <img (click)="onIconClick()" class="nav--container--brand--section-logo" src="/assets/Icons/Icon.png"
+           alt="shortVisionLogo"/>
       <strong>
         <span [ngClass]="currentUrl == '/'? ('nav--container--brand--section-vision'):('')">
           ShortVision
@@ -10,8 +11,9 @@
     </li>
   </ul>
   <ul class="nav--container--ul">
-    <li *ngIf="!isUserLoggedIn" ><a class="nav--container--ul--link" routerLink="/login" href="#">Login</a></li>
+    <li *ngIf="!isUserLoggedIn"><a class="nav--container--ul--link" routerLink="/login" href="#">Login</a></li>
     <li><a class="nav--container--ul--link" href="#">About</a></li>
     <li><a class="nav--container--ul--link" href="#">Contact</a></li>
+    <li *ngIf="isUserLoggedIn"><a (click)="onLogOut()" role="button" class="nav--container--ul--link" href="">Log Out</a></li>
   </ul>
 </nav>

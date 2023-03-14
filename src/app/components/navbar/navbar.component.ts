@@ -32,4 +32,7 @@ export class NavbarComponent implements OnInit {
     });
     this.currentUrl = this.router.url;
   }
+  onLogOut() {
+    this.userToken.removeToken();
+  }
 }

@@ -9,6 +9,9 @@ export class UserToken {
   getToken(): string | null {
     return localStorage.getItem('token');
   }
+  removeToken(): void {
+    localStorage.removeItem('token');
+  }
 }
 
 

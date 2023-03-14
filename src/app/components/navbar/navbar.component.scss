@@ -11,3 +11,8 @@
   width: 50%; /* ou une autre valeur en pourcentage qui convient à votre mise en page */
   max-width: 84px; /* ou une autre taille maximale en pixels */
 }
+summary[role="link"].secondary:is([aria-current],:hover,:active,:focus) {
+  background-color: transparent;
+  color: var(--secondary-hover);
+  z-index: 10550505500;
+}
