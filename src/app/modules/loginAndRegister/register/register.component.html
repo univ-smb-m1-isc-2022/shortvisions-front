@@ -27,9 +27,10 @@
             Confirm Password
             <input formControlName="confirmPassword" type="password" id="password_confirmation" name="password"
                    placeholder="Password" minlength="8" required>
-            <small role="alert" *ngIf="registerForm.hasError('notSame') && (registerForm.get('confirmPassword')?.dirty || registerForm.get('confirmPassword')?.touched)">
-            Passwords do not match
-          </small>
+            <div class="alert alert-danger"
+                   *ngIf="registerForm.hasError('notSame') && (registerForm.get('confirmPassword')?.dirty || registerForm.get('confirmPassword')?.touched)">
+              Passwords do not match
+            </div>
           </label>
 
           <label for="email">Email address

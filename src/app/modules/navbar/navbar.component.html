@@ -1,4 +1,4 @@
-<nav class="container-fluid nav--container">
+<nav class="container-fluid nav--container" xmlns="http://www.w3.org/1999/html">
   <ul class="nav--container--brand--section">
     <li>
       <img (click)="onIconClick()" class="nav--container--brand--section-logo" src="/assets/Icons/Icon.png"
@@ -14,6 +14,23 @@
     <li *ngIf="!isUserLoggedIn"><a class="nav--container--ul--link" routerLink="/login" href="#">Login</a></li>
     <li><a class="nav--container--ul--link" href="#">About</a></li>
     <li><a class="nav--container--ul--link" href="#">Contact</a></li>
-    <li *ngIf="isUserLoggedIn"><a class="nav--container--ul--link-button" (click)="onLogOut()" role="button" href="">LogOut</a></li>
+    <li *ngIf="isUserLoggedIn"><a class="nav--container--ul--link-button" (click)="onLogOut()" role="button" href="">LogOut</a>
+    </li>
   </ul>
+  <ol class="nav--container--ul-hamburger">
+    <input id="hamburgerToggle" type="checkbox"/>
+    <aside>
+      <li *ngIf="!isUserLoggedIn"><a class="nav--container--ul--link-hamburger" routerLink="/login" href="#">Login</a></li>
+    </aside>
+    <aside>
+      <li><a class="nav--container--ul--link-hamburger" href="#">About</a></li>
+    </aside>
+    <aside>
+      <li><a class="nav--container--ul--link-hamburger" href="#">Contact</a></li>
+    </aside>
+    <aside>
+      <li *ngIf="isUserLoggedIn"><a class="nav--container--ul--link-hamburger-button" (click)="onLogOut()" role="button" href="">LogOut</a>
+      </li>
+    </aside>
+  </ol>
 </nav>
