@@ -14,13 +14,6 @@ export const notSame = {notSame: true};
 })
 
 export class RegisterComponent implements OnInit {
-  userData!: {
-    firstName: string,
-    lastName: string,
-    email: string,
-    password: string,
-    confirmPassword: string,
-  };
 
   registerForm!: FormGroup;
   loading = false;
@@ -52,16 +45,17 @@ export class RegisterComponent implements OnInit {
   }
   onSubmit() {
     this.loading = this.signInUpService.isLoading();
-    this.signInUpService.registerUser(this.userData).pipe(
+    this.signInUpService.registerUser(this.registerForm.value)
+      .pipe(
       finalize(() => {
         this.signInUpService.loading = false;
       })
     ).subscribe({
       next: async (data) => {
         const user = {
-          firstName: this.userData.firstName,
-          lastName: this.userData.lastName,
-          email: this.userData.email,
+          firstName: this.registerForm.value.firstName,
+          lastName: this.registerForm.value.lastName,
+          email: this.registerForm.value.email,
           token: data
         } as User;
         this.signInUpService.setCurrentUser(user);

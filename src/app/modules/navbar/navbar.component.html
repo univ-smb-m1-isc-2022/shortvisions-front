@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="navbar.component.scss">
 <nav class="container-fluid nav--container" xmlns="http://www.w3.org/1999/html">
   <ul class="nav--container--brand--section">
     <li>
@@ -14,23 +15,24 @@
     <li *ngIf="!isUserLoggedIn"><a class="nav--container--ul--link" routerLink="/login" href="#">Login</a></li>
     <li><a class="nav--container--ul--link" href="#">About</a></li>
     <li><a class="nav--container--ul--link" href="#">Contact</a></li>
-    <li *ngIf="isUserLoggedIn"><a class="nav--container--ul--link-button" (click)="onLogOut()" role="button" href="">LogOut</a>
+    <li *ngIf="isUserLoggedIn"><a class="nav--container--ul--link nav--container--ul--link-button" (click)="onLogOut()" role="button" href="">LogOut</a>
     </li>
   </ul>
   <ul class="nav--container--ul-hamburger">
-    <label class="container">
-    <input id="hamburgerToggle" type="checkbox"/>
-    <div class="checkmark">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
+    <label class="container-burger">
+      <input id="hamburgerToggle" type="checkbox"/>
+      <div class="checkmark-burger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <aside class="nav--container--ul-hamburger-aside">
+        <li *ngIf="!isUserLoggedIn"><a class="nav--container--ul--link-hamburger" routerLink="/login" href="#">Login</a></li>
+        <li><a class="nav--container--ul--link-hamburger" href="#">About</a></li>
+        <li><a class="nav--container--ul--link-hamburger" href="#">Contact</a></li>
+        <li *ngIf="isUserLoggedIn"><a class="nav--container--ul--link-hamburger-button" (click)="onLogOut()" role="button" href="">LogOut</a></li>
+      </aside>
     </label>
-    <aside class="nav--container--ul-hamburger-aside">
-      <li *ngIf="!isUserLoggedIn"><a class="nav--container--ul--link-hamburger" routerLink="/login" href="#">Login</a></li>
-      <li><a class="nav--container--ul--link-hamburger" href="#">About</a></li>
-      <li><a class="nav--container--ul--link-hamburger" href="#">Contact</a></li>
-      <li *ngIf="isUserLoggedIn"><a class="nav--container--ul--link-hamburger-button" (click)="onLogOut()" role="button" href="">LogOut</a>
-    </aside>
+
   </ul>
 </nav>

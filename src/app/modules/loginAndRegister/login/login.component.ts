@@ -3,6 +3,7 @@ import {finalize} from "rxjs";
 import {User} from "../../../models/user";
 import {SignInUpService} from "../service/sign-in-up.service";
 import {Router} from "@angular/router";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-login',
@@ -11,26 +12,25 @@ import {Router} from "@angular/router";
 })
 export class LoginComponent implements OnInit{
 
-  userData!: {
-    email: string,
-    password: string,
-  };
+  isError = false;
+  loginForm!: FormGroup;
   loading = false;
   constructor(private signInUpService:SignInUpService,private router:Router) { }
 
   ngOnInit(): void {
-    this.userData = {
-      email: '',
-      password: '',
-    }
+    this.loginForm = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required, Validators.minLength(8)])
+    });
+
   }
   onSubmit() {
     this.loading = this.signInUpService.isLoading();
-    this.signInUpService.loginUser(this.userData).subscribe({
+    this.signInUpService.loginUser(this.loginForm.value).subscribe({
       next: async (data) => {
         // console.log('RegisterComponent.onSubmit().next()', data);
         const user = {
-          email: this.userData.email,
+          email: this.loginForm.value.email,
           token: data
         } as User;
         this.signInUpService.setCurrentUser(user);
@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit{
       },
       error: (error) => {
         console.log('RegisterComponent.onSubmit().error()', error);
+        this.isError = true;
         this.loading = this.signInUpService.isLoading();
       }
     });
