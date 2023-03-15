@@ -6,8 +6,6 @@
   overflow-x: hidden;
 }
 
-
-
 .alert {
   $iconsize: calc(var(--font-size) *  1.5); // 24px / 30px if $enable-responsive-spacings
   margin-bottom: var(--spacing); // some default space below alert element
