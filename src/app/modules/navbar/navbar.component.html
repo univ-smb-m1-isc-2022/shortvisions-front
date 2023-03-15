@@ -17,20 +17,20 @@
     <li *ngIf="isUserLoggedIn"><a class="nav--container--ul--link-button" (click)="onLogOut()" role="button" href="">LogOut</a>
     </li>
   </ul>
-  <ol class="nav--container--ul-hamburger">
+  <ul class="nav--container--ul-hamburger">
+    <label class="container">
     <input id="hamburgerToggle" type="checkbox"/>
-    <aside>
+    <div class="checkmark">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    </label>
+    <aside class="nav--container--ul-hamburger-aside">
       <li *ngIf="!isUserLoggedIn"><a class="nav--container--ul--link-hamburger" routerLink="/login" href="#">Login</a></li>
-    </aside>
-    <aside>
       <li><a class="nav--container--ul--link-hamburger" href="#">About</a></li>
-    </aside>
-    <aside>
       <li><a class="nav--container--ul--link-hamburger" href="#">Contact</a></li>
-    </aside>
-    <aside>
       <li *ngIf="isUserLoggedIn"><a class="nav--container--ul--link-hamburger-button" (click)="onLogOut()" role="button" href="">LogOut</a>
-      </li>
     </aside>
-  </ol>
+  </ul>
 </nav>
