@@ -1,0 +1,49 @@
+.register--form--submit-button {
+  align-self: center;
+  all: unset;
+  text-align: center;
+  width: 10vw;
+  padding: 12.5px 30px;
+  border: 0;
+  border-radius: 100px;
+  background-color: #2ba8fb;
+  color: #fbfbfb;
+  font-weight: Bold;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+
+  &:hover {
+    background-color: #6fc5ff;
+    box-shadow: 0 0 20px #6fc5ff50;
+  }
+
+  &:active {
+    background-color: #3d94cf;
+    transition: all 0.25s;
+    -webkit-transition: all 0.25s;
+    box-shadow: none;
+  }
+}
+
+.register--form--flex-box{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  label {
+    max-width: 275px;
+  }
+}
+article div:nth-of-type(2) {
+  background-color: #374956;
+  background-image: url("/assets/hero/Head.png");
+  background-position: center;
+  background-size: initial;
+}
+
+
+@media (min-width: 992px) {
+  .grid > div:nth-of-type(2) {
+    display: block;
+  }
+}

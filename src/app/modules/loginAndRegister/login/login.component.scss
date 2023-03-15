@@ -1,0 +1,52 @@
+article div:nth-of-type(2) {
+  display: none;
+  background-color: #374956;
+  background-image: url("/src/assets/hero/Head.png");
+  background-position: center;
+  background-size: cover;
+}
+
+article div:nth-of-type(2) {
+  display: none;
+  background-color: #374956;
+  background-image: url("/src/assets/hero/Head.png");
+  background-position: center;
+  background-size: initial;
+}
+
+@media (min-width: 992px) {
+  .grid > div:nth-of-type(2) {
+    display: block;
+  }
+}
+
+
+@media (min-width: 768px) {
+  body > main {
+    padding: 1.5rem 0;
+  }
+
+  article div {
+    padding: 1.5rem;
+  }
+}
+
+@media (min-width: 992px) {
+  body > main {
+    padding: 1.75rem 0;
+  }
+
+  article div {
+    padding: 1.75rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  body > main {
+    padding: 2rem 0;
+  }
+
+  article div {
+    padding: 2rem;
+  }
+}

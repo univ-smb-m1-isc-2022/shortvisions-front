@@ -1,0 +1,51 @@
+<main class="container">
+  <article class="grid">
+    <div>
+      <hgroup>
+        <h1>Sign Up!</h1>
+        <h2>You're a few minutes away of future !</h2>
+      </hgroup>
+      <form [formGroup]="registerForm" #form class="register--form" (ngSubmit)="onSubmit()">
+        <div class="register--form--flex-box">
+          <label for="firstname">
+            First name
+            <input formControlName="firstName" type="text" id="firstname" name="firstname" placeholder="First name"
+                   required>
+          </label>
+          <label for="lastname">
+            Last name
+            <input formControlName="lastName" type="text" id="lastname" name="lastname" placeholder="Last name"
+                   required>
+          </label>
+          <label for="password">
+            Password
+            <input formControlName="password" type="password" id="password" name="password" placeholder="Password"
+                   minlength="8" required>
+          </label>
+
+          <label for="password">
+            Confirm Password
+            <input formControlName="confirmPassword" type="password" id="password_confirmation" name="password"
+                   placeholder="Password" minlength="8" required>
+            <div class="alert alert-danger"
+                   *ngIf="registerForm.hasError('notSame') && (registerForm.get('confirmPassword')?.dirty || registerForm.get('confirmPassword')?.touched)">
+              Passwords do not match
+            </div>
+          </label>
+
+          <label for="email">Email address
+            <input formControlName="email" type="email" id="email" name="email" placeholder="Email address"
+                   required>
+            <small>We'll never share your email with anyone else.</small>
+          </label>
+
+          <button class="register--form--submit-button" type="submit">Submit</button>
+
+        </div>
+      </form>
+    </div>
+    <div></div>
+  </article>
+</main>
+
+

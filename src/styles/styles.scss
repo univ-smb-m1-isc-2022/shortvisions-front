@@ -1,0 +1,30 @@
+*{
+  overflow-y: scroll;
+  ::-webkit-scrollbar {
+    width: 0px;
+  }
+  overflow-x: hidden;
+}
+
+.alert {
+  $iconsize: calc(var(--font-size) *  1.5); // 24px / 30px if $enable-responsive-spacings
+  margin-bottom: var(--spacing); // some default space below alert element
+  padding: var(--form-element-spacing-vertical) var(--form-element-spacing-horizontal); // same as forms .input
+  border-radius: var(--border-radius);
+  //font-weight: 500; // var(--font-weight);
+  //font-size: 1rem;
+  //line-height: var(--line-height);
+  color: var(--color);
+  background-color: var(--background-color);
+  border: 1px solid var(--background-color); // compensate for 1px border
+  // icon
+  background-image: var(--icon);
+  background-position: center left var(--form-element-spacing-vertical); // use vertical for icon left align
+  background-size: $iconsize auto;
+  padding-left: calc(var(--form-element-spacing-vertical) * 2.5 + #{$iconsize});
+}
+.alert-danger {
+  background-color: #ffcfcf;
+  --icon: var(--icon-invalid);
+  --color: #f87171;
+}
