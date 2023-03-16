@@ -110,10 +110,12 @@
     flex-direction: column;
     margin-top: calc(var(--nav-element-spacing-vertical) + 3px);
     margin-right: calc(var(--nav-element-spacing-horizontal) + 3px);
+    z-index: 12;
   }
 }
 
 .nav--container--ul-hamburger-aside{
   border-radius: 5px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  z-index: 11;
 }
