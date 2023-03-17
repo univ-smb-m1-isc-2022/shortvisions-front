@@ -34,11 +34,11 @@ export class SignInUpService {
 
   loginUser(userData: { password: string, email: string }): Observable<any> {
     this.loading = true;
-    console.log("USRDATA", userData)
     const body = {...userData};
     return this.http.post(API_ROOT_URL + this.loginPostFix, body).pipe(
       tap((response: any) => {
         localStorage.setItem('token', response.token)
+        localStorage.setItem('user',response.id)
       }),
       finalize(() => {
         this.loading = false;

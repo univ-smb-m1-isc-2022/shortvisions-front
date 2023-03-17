@@ -1,0 +1,12 @@
+.project--header--container{
+  display:flex;
+  justify-content:space-between;
+  flex-direction: row;
+  align-items: center;
+  h1{
+    margin-top: calc(var(--spacing) + .5ch);
+  }
+  button{
+    width: fit-content;
+  }
+}

@@ -13,8 +13,6 @@ export class UserToken {
     localStorage.removeItem('token');
   }
 }
-
-
 @Injectable()
  export class PermissionsService {
   constructor(private router: Router) {}

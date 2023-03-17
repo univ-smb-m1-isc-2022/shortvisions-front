@@ -10,29 +10,7 @@
   top: 0;
   left: 0;
 }
-.content--discovery--button{
-  all: unset;
-  text-align: center;
-  width: 10vw;
-  padding: 12.5px 30px;
-  border: 0;
-  border-radius: 100px;
-  background-color: #fafafa;
-  color: #2ba8fb;
-  font-weight: Bold;
-  transition: all 0.5s;
-  -webkit-transition: all 0.5s;
-  &:hover {
-    background-color: #6fc5ff;
-    box-shadow: 0 0 20px #6fc5ff50;
-  }
-  &:active {
-    background-color: #3d94cf;
-    transition: all 0.25s;
-    -webkit-transition: all 0.25s;
-    box-shadow: none;
-  }
- }
+
 .hero--section--head {
   right: 0;
   bottom: 25%;
@@ -66,6 +44,29 @@
   background-repeat: no-repeat;
   background-position: right center;
   background-size: 100% 75%;
+}
+.content--discovery--button{
+  all: unset;
+  text-align: center;
+  width: 10vw;
+  padding: 12.5px 30px;
+  border: 0;
+  border-radius: 100px;
+  background-color: #fafafa;
+  color: #2ba8fb;
+  font-weight: Bold;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+  &:hover {
+    background-color: #6fc5ff;
+    box-shadow: 0 0 20px #6fc5ff50;
+  }
+  &:active {
+    background-color: #3d94cf;
+    transition: all 0.25s;
+    -webkit-transition: all 0.25s;
+    box-shadow: none;
+  }
 }
 @media (min-width: 320px) and (max-width: 766px){
   .content--discovery--button{
