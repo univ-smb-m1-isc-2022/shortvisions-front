@@ -41,19 +41,13 @@ export class DashboardComponent implements OnInit, AfterContentChecked {
 
   ngAfterContentChecked(): void {
     const grid = document.querySelector('.project--body--grid') as HTMLElement;
-
     const items = grid.children;
-
-
     if (items.length > 0) {
       const itemsPerRow = Math.floor(grid.offsetWidth / (items[0] as HTMLElement).offsetWidth);
-      console.log('ITEMS PER ROW', itemsPerRow);
       const lastRowItemCount = items.length % itemsPerRow;
-      console.log('LAST ROW ITEM COUNT', lastRowItemCount);
-      if(lastRowItemCount > 0) {
+      if (lastRowItemCount > 0) {
         const lastRowItems = Array.from(items).slice(-lastRowItemCount);
         (lastRowItems[lastRowItemCount - 1] as HTMLElement).style.gridColumnEnd = `span ${itemsPerRow - lastRowItemCount + 1}`;
-
       }
     }
   }
