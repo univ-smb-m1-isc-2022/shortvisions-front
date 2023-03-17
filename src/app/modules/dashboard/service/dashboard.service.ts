@@ -5,9 +5,9 @@ import {finalize, tap} from "rxjs";
 
 
 export type Project = {
-  id?: number | null,
   name: string,
   description: string,
+
 }
 export const API_ROOT_URL = environment.ShortVision_API2;
 
@@ -18,8 +18,8 @@ export const API_ROOT_URL = environment.ShortVision_API2;
 export class DashboardService {
 
   projectPostfFix = '/users/'
-  createProjectSuffix = '/users/projects/projectSection/'
-  createProjectPostfix = '/projects/'
+  createProjectSuffix = '/user/projectSection/'
+  createProjectPostfix = '/projects'
   userData!: Object;
   loading!: boolean;
 

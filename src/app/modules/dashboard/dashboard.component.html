@@ -7,8 +7,10 @@
       </div>
     </header>
     <body>
-    <div class="grid">
-      <app-project-card *ngFor="let project of projects"></app-project-card>
+    <div class="project--body--grid">
+      <article *ngFor="let project of projects">
+        <app-project-card [project]="project"></app-project-card>
+      </article>
     </div>
     </body>
     <footer>

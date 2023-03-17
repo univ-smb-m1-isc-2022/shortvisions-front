@@ -2,7 +2,7 @@
   <article class="grid">
     <div>
       <h1>Name and describe your project</h1>
-      <form [formGroup]="createProjectForm" class="form--create--project">
+      <form (ngSubmit)="onCreateProject()" [formGroup]="createProjectForm" class="form--create--project">
         <label for="projectName">
           <input formControlName="name" id="projectName" type="text" name="projectName" placeholder="Name Your Project"
                  aria-label="Project Name" required>
@@ -33,7 +33,7 @@
           </div>
         </label>
         <div class="form--create--project--button--container">
-          <button class="form--create--project--button--container-button">
+          <button type="submit" class="form--create--project--button--container-button">
             Create !
           </button>
         </div>

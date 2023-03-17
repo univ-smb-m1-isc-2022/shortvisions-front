@@ -10,3 +10,12 @@
     width: fit-content;
   }
 }
+.project--body--grid{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing);
+  padding-left: var(--spacing);
+  padding-right: var(--spacing);
+}
+
+
