@@ -7,10 +7,10 @@ export class UserToken {
   constructor() {
   }
   getToken(): string | null {
-    return localStorage.getItem('token');
+    return sessionStorage.getItem('token');
   }
   removeToken(): void {
-    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
   }
 }
 @Injectable()

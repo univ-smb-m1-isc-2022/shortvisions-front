@@ -13,7 +13,7 @@ export class DashboardComponent implements OnInit {
   projects!: Object[];
   constructor(private dashBoardService: DashboardService, private router: Router) {}
   ngOnInit(): void {
-    this.userId = Number(localStorage.getItem('user'));
+    this.userId = Number(sessionStorage.getItem('user'));
     this.dashBoardService.getDashboardData(this.userId).subscribe(
       {
         next: (response:any) => {

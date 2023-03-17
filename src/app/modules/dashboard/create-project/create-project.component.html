@@ -1,18 +1,36 @@
 <main class="container-fluid">
   <article class="grid">
     <div>
-      <hgroup>
-        <h1>Name and describe your project</h1>
-        <h2>yusscodes</h2>
-      </hgroup>
-      <form class="form--create--project">
+      <h1>Name and describe your project</h1>
+      <form [formGroup]="createProjectForm" class="form--create--project">
         <label for="projectName">
-          <input id="projectName" type="text" name="projectName" placeholder="Name Your Project"
+          <input formControlName="name" id="projectName" type="text" name="projectName" placeholder="Name Your Project"
                  aria-label="Project Name" required>
+          <div class="alert alert-danger"
+               *ngIf="createProjectForm
+                ?.get('name')
+                ?.hasError('required')
+                 &&
+                  createProjectForm
+                  ?.get('name')
+                  ?.touched">
+            Project Name is required
+          </div>
         </label>
         <label for="projectDescription">
-          <input id="projectDescription" type="text" name="projectDescription" placeholder="Describe Your Project"
+          <input formControlName="description" id="projectDescription" type="text" name="projectDescription"
+                 placeholder="Describe Your Project"
                  aria-label="Project Description" required>
+          <div class="alert alert-danger"
+               *ngIf="createProjectForm
+                ?.get('description')
+                ?.hasError('required')
+                &&
+                 createProjectForm
+                 ?.get('description')
+                 ?.touched">
+            Project Description is required
+          </div>
         </label>
         <div class="form--create--project--button--container">
           <button class="form--create--project--button--container-button">

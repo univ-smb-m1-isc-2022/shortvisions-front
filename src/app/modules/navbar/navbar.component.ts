@@ -15,8 +15,8 @@ export class NavbarComponent implements OnInit {
 
   async onIconClick() {
     console.log("icon clicked")
-    console.log(localStorage.getItem('token'))
-    if (localStorage.getItem('token')) {
+    console.log(sessionStorage.getItem('token'))
+    if (sessionStorage.getItem('token')) {
       await this.router.navigate(['/dashboard'])
     } else {
       await this.router.navigate(['/'])

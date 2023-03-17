@@ -37,8 +37,8 @@ export class SignInUpService {
     const body = {...userData};
     return this.http.post(API_ROOT_URL + this.loginPostFix, body).pipe(
       tap((response: any) => {
-        localStorage.setItem('token', response.token)
-        localStorage.setItem('user',response.id)
+        sessionStorage.setItem('token', response.token)
+        sessionStorage.setItem('user',response.id)
       }),
       finalize(() => {
         this.loading = false;
