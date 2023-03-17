@@ -9,10 +9,12 @@ import {HttpClientModule} from "@angular/common/http";
 import { CreateProjectComponent } from './create-project/create-project.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {TruncateProjectDescrPipe} from "../../pipes/truncate-project-descr.pipe";
+import { ProjectViewComponent } from './project-view/project-view.component';
 
 const routes: Routes = [
   {path: '', component: DashboardComponent},
   {path:'create-project', component: CreateProjectComponent},
+  {path: 'project/:id', component: ProjectViewComponent}
 ]
 
 @NgModule({
@@ -21,7 +23,8 @@ const routes: Routes = [
     TerminalCardComponent,
     ProjectCardComponent,
     CreateProjectComponent,
-    TruncateProjectDescrPipe
+    TruncateProjectDescrPipe,
+    ProjectViewComponent
   ],
   imports: [
     CommonModule,
