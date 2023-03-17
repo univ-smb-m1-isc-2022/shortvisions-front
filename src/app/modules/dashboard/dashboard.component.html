@@ -10,6 +10,7 @@
     <div class="project--body--grid">
       <article *ngFor="let project of projects">
         <app-project-card [project]="project"></app-project-card>
+        <button (click)="onViewProject(project.id)" class="project--body--grid--button-view-project">View Project</button>
       </article>
     </div>
     </body>

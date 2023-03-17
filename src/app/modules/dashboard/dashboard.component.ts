@@ -34,11 +34,9 @@ export class DashboardComponent implements OnInit, AfterContentChecked {
       }
     );
   }
-
   onCreateProject() {
     this.router.navigate(['/dashboard/create-project']).then();
   }
-
   ngAfterContentChecked(): void {
     const grid = document.querySelector('.project--body--grid') as HTMLElement;
     const items = grid.children;
@@ -50,6 +48,11 @@ export class DashboardComponent implements OnInit, AfterContentChecked {
         (lastRowItems[lastRowItemCount - 1] as HTMLElement).style.gridColumnEnd = `span ${itemsPerRow - lastRowItemCount + 1}`;
       }
     }
+  }
+
+  onViewProject(id: number) {
+    console.log('VIEW PROJECT', id);
+    this.router.navigate(['/dashboard/project', id]).then();
   }
 }
 

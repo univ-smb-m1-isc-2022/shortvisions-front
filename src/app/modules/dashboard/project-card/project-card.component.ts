@@ -2,6 +2,8 @@ import {Component, Input, OnInit} from '@angular/core';
 
 export type CompleteProject = {
   id: number;
+  name: string;
+  description: string;
   mergeVideo: false;
   responseChatGPT: string;
   tts: string[];
@@ -20,7 +22,9 @@ export class ProjectCardComponent implements OnInit{
   @Input() project!: CompleteProject;
   constructor() {
   }
-
   ngOnInit(): void {
+    console.log('ProjectCardComponent.ngOnInit()', this.project);
   }
+
+
 }

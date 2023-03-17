@@ -12,6 +12,7 @@ import {
 import {PermissionsService, UserToken} from "./auth/auth.guard";
 import { TruncatePipe } from './pipes/truncate.pipe';
 import {HttpInterceptorProviders} from "./headers";
+import { TruncateProjectDescrPipe } from './pipes/truncate-project-descr.pipe';
 
 @NgModule({
   declarations: [
@@ -32,9 +33,9 @@ import {HttpInterceptorProviders} from "./headers";
     UserToken,
     HttpInterceptorProviders
   ],
-  exports: [
-    NavbarComponent,
-  ],
+    exports: [
+        NavbarComponent,
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

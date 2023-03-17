@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../../environments/environment";
-import {finalize, tap} from "rxjs";
+import {finalize, map, tap} from "rxjs";
 
 
 export type Project = {
@@ -25,11 +25,17 @@ export class DashboardService {
 
   constructor(private httpClient: HttpClient) {
   }
-
   getDashboardData(id: number) {
     this.loading = true;
     this.userData = {token: sessionStorage.getItem('token')};
     return this.httpClient.get(API_ROOT_URL + this.projectPostfFix + id).pipe(
+      map((response: any) => {
+        const projects = response.projects;
+        projects.sort((a: any, b: any) => {
+          return new Date(b.created_date).getTime() - new Date(a.created_date).getTime();
+        });
+        return {...response, projects};
+      }),
       finalize(() => {
         this.loading = false;
       })
