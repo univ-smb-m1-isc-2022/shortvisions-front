@@ -6,4 +6,4 @@ RUN npm install
 RUN npm run build --prod
 #stage 2
 FROM nginx:alpine
-COPY --from=node /dist/shortVisions-front /usr/share/nginx/html
+COPY --from=node /app/dist/short-visions-front/ /usr/share/nginx/html
