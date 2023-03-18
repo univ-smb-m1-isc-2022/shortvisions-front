@@ -23,7 +23,7 @@ jobs:
 
       - name: Remove package-lock.json
         run: rm -f package-lock.json
-        
+
       - name: Install NPM Modules
         run: npm install
 
@@ -31,7 +31,7 @@ jobs:
         run: npm run build --prod
 
       - name: Build Docker image
-        run: docker build -t shortvisions-front -f Dockerfile .
+        run: docker build -t shortvisions-front -f Dockerfile . --no-cache
       
       - name: Push to GitHub Packages of organization
         run: >
