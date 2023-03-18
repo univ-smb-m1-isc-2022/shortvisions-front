@@ -7,7 +7,6 @@ on:
 
 jobs:
   web-deploy:
-
     name: Deploy Angular App
     runs-on: ubuntu-latest
 
@@ -27,7 +26,7 @@ jobs:
         run: npm run build --prod
 
       - name: Build Docker image
-        run: docker build -t shortvisions-front ./dist/.
+        run: docker build -t shortvisions-front -f Dockerfile .
 
       - name: Push to GitHub Packages of organization
         uses: docker/build-push-action@v1
