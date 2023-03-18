@@ -19,12 +19,13 @@ export class LoginComponent implements OnInit{
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
+      email: new FormControl('', [Validators.required, Validators.email, Validators.minLength(5)]),
       password: new FormControl('', [Validators.required, Validators.minLength(8)])
     });
 
   }
   onSubmit() {
+    if(this.loginForm.invalid){return;}
     this.loading = this.signInUpService.isLoading();
     this.signInUpService.loginUser(this.loginForm.value).subscribe({
       next: async (data) => {

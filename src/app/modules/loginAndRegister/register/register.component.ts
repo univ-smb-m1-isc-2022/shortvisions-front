@@ -22,13 +22,6 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.userData={
-    //   firstName: '',
-    //   lastName: '',
-    //   email: '',
-    //   password: '',
-    //   confirmPassword: '',
-    // }
     this.registerForm = this.fb.group({
       firstName: ['',Validators.required],
       lastName: ['',Validators.required],
@@ -44,6 +37,7 @@ export class RegisterComponent implements OnInit {
     return pass === confirmPass ? null : {notSame:true}
   }
   onSubmit() {
+    if(this.registerForm.invalid){return;}
     this.loading = this.signInUpService.isLoading();
     this.signInUpService.registerUser(this.registerForm.value)
       .pipe(

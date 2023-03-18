@@ -11,6 +11,8 @@ import {
 } from "./modules/hero-section/content-card-container/content-card-container.component";
 import {PermissionsService, UserToken} from "./auth/auth.guard";
 import { TruncatePipe } from './pipes/truncate.pipe';
+import {HttpInterceptorProviders} from "./headers";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -24,12 +26,17 @@ import { TruncatePipe } from './pipes/truncate.pipe';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
-  providers: [PermissionsService,UserToken],
-  exports: [
-    NavbarComponent,
+  providers: [
+    PermissionsService,
+    UserToken,
+    HttpInterceptorProviders
   ],
+    exports: [
+        NavbarComponent,
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

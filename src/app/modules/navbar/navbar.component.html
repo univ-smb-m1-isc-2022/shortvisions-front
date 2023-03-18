@@ -12,10 +12,10 @@
     </li>
   </ul>
   <ul class="nav--container--ul">
-    <li *ngIf="!isUserLoggedIn"><a class="nav--container--ul--link" routerLink="/login" href="#">Login</a></li>
-    <li><a class="nav--container--ul--link" href="#1">About</a></li>
-    <li><a class="nav--container--ul--link" href="#1">Contact</a></li>
-    <li *ngIf="isUserLoggedIn"><a class="nav--container--ul--link nav--container--ul--link-button" (click)="onLogOut()" role="button" href="">LogOut</a>
+    <li *ngIf="!isUserLoggedIn"><button class="nav--container--ul--link" routerLink="/login">Login</button></li>
+    <li><button class="nav--container--ul--link" href="#1">About</button></li>
+    <li><button class="nav--container--ul--link" href="#1">Contact</button></li>
+    <li *ngIf="isUserLoggedIn"><button class="nav--container--ul--link nav--container--ul--link-logout" (click)="onLogOut()" role="button" href="">LogOut</button>
     </li>
   </ul>
   <ul class="nav--container--ul-hamburger">
@@ -27,7 +27,7 @@
         <span></span>
       </div>
       <aside class="nav--container--ul-hamburger-aside">
-        <li *ngIf="!isUserLoggedIn"><a class="nav--container--ul--link-hamburger" routerLink="/login" href="#">Login</a></li>
+        <li *ngIf="!isUserLoggedIn"><a class="nav--container--ul--link-hamburger" routerLink="/login" href="">Login</a></li>
         <li><a class="nav--container--ul--link-hamburger" href="#">About</a></li>
         <li><a class="nav--container--ul--link-hamburger" href="#">Contact</a></li>
         <li *ngIf="isUserLoggedIn">

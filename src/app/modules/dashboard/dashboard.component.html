@@ -1,1 +1,24 @@
-<p>dashboard works!</p>
+<main class="container-fluid">
+  <article>
+    <header>
+      <div class="project--header--container">
+        <h1>Welcome {{userName}} </h1>
+        <button (click)="onCreateProject()">Create Project</button>
+      </div>
+    </header>
+    <body>
+    <div class="project--body--grid">
+      <article *ngFor="let project of projects">
+        <header class="project--body--grid--header">
+        </header>
+        <app-project-card [project]="project"></app-project-card>
+        <button (click)="onViewProject(project.id)" class="project--body--grid--button-view-project">View Project</button>
+      </article>
+    </div>
+    </body>
+    <footer>
+      <p>My Footer</p>
+    </footer>
+  </article>
+
+</main>

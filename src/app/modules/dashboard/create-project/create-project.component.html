@@ -1,0 +1,46 @@
+<main class="container-fluid">
+  <article class="grid">
+    <div>
+      <h1>Name and describe your project</h1>
+      <form (ngSubmit)="onCreateProject()" [formGroup]="createProjectForm" class="form--create--project">
+        <label for="projectName">
+          <input formControlName="name" id="projectName" type="text" name="projectName" placeholder="Name Your Project"
+                 aria-label="Project Name" required>
+          <div class="alert alert-danger"
+               *ngIf="createProjectForm
+                ?.get('name')
+                ?.hasError('required')
+                 &&
+                  createProjectForm
+                  ?.get('name')
+                  ?.touched">
+            Project Name is required
+          </div>
+        </label>
+        <label for="projectDescription">
+          <input formControlName="description" id="projectDescription" type="text" name="projectDescription"
+                 placeholder="Describe Your Project"
+                 aria-label="Project Description" required>
+          <div class="alert alert-danger"
+               *ngIf="createProjectForm
+                ?.get('description')
+                ?.hasError('required')
+                &&
+                 createProjectForm
+                 ?.get('description')
+                 ?.touched">
+            Project Description is required
+          </div>
+          <div class="alert alert-danger" *ngIf="createProjectForm?.get('description')?.hasError('maxlength')">
+            Project Description is too long (max 255 characters)
+          </div>
+        </label>
+        <div class="form--create--project--button--container">
+          <button type="submit" class="form--create--project--button--container-button">
+            Create !
+          </button>
+        </div>
+      </form>
+    </div>
+  </article>
+</main>
