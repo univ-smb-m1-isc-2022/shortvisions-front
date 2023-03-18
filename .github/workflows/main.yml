@@ -29,7 +29,7 @@ jobs:
         run: docker build -t shortvisions-front -f Dockerfile .
       
       - name: Push to GitHub Packages of organization
-          run: |
-          echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-          docker tag shortvisions-front ghcr.io/univ-smb-m1-isc-2022/shortvisions-front:latest
-          docker push ghcr.io/univ-smb-m1-isc-2022/shortvisions-front:latest
+        run: |
+        echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+        docker tag shortvisions-front ghcr.io/univ-smb-m1-isc-2022/shortvisions-front:latest
+        docker push ghcr.io/univ-smb-m1-isc-2022/shortvisions-front:latest
