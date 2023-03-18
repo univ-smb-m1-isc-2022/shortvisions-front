@@ -1,2 +1,2 @@
 FROM nginx:alpine
-COPY /dist/trading-game-front /usr/share/nginx/html
+COPY /dist/shortvisions-front /usr/share/nginx/html
