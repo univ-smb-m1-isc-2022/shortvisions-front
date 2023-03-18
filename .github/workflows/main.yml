@@ -41,4 +41,4 @@ jobs:
           tags: ghcr.io/univ-smb-m1-isc-2022/shortvisions-front:latest
         env:
           DOCKER_USERNAME: ${{ github.actor }}
-          DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+          DOCKER_PASSWORD: ${{ secrets.HUB_TOKEN }}
