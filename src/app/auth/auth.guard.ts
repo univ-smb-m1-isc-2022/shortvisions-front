@@ -11,6 +11,7 @@ export class UserToken {
   }
   removeToken(): void {
     sessionStorage.removeItem('token');
+    sessionStorage.removeItem('user');
   }
 }
 @Injectable()

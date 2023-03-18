@@ -10,11 +10,12 @@ import { CreateProjectComponent } from './create-project/create-project.componen
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {TruncateProjectDescrPipe} from "../../pipes/truncate-project-descr.pipe";
 import { ProjectViewComponent } from './project-view/project-view.component';
+import {canActivateTeam} from "../../auth/auth.guard";
 
 const routes: Routes = [
-  {path: '', component: DashboardComponent},
-  {path:'create-project', component: CreateProjectComponent},
-  {path: 'project/:id', component: ProjectViewComponent}
+  {path: '', component: DashboardComponent,canActivate:[canActivateTeam]},
+  {path:'create-project', component: CreateProjectComponent,canActivate:[canActivateTeam]},
+  {path: 'project/:id', component: ProjectViewComponent,canActivate:[canActivateTeam]}
 ]
 
 @NgModule({
