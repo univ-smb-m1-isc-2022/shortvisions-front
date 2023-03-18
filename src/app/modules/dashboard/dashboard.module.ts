@@ -11,6 +11,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {TruncateProjectDescrPipe} from "../../pipes/truncate-project-descr.pipe";
 import { ProjectViewComponent } from './project-view/project-view.component';
 import {canActivateTeam} from "../../auth/auth.guard";
+import {ModalService} from "./project-view/modal.service";
 
 const routes: Routes = [
   {path: '', component: DashboardComponent,canActivate:[canActivateTeam]},
@@ -37,6 +38,7 @@ const routes: Routes = [
   ],
   providers: [
     DashboardService,
+    ModalService
   ],
 })
 export class DashboardModule { }

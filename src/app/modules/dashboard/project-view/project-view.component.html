@@ -21,27 +21,26 @@
       </button>
     </header>
     <div class="project--view--grid">
-      <aside>
-        <object #mp4 type="image/svg+xml" data="/assets/Icons/project/mp4.svg" class="icon">
+      <aside *ngIf="currentProject?.videos?.length" (dblclick)="openModal('mp4')"  #mp4>
+        <object type="image/svg+xml" data="/assets/Icons/project/mp4.svg" class="icon">
           Votre navigateur ne supporte pas les SVGs
         </object>
         <p><b>Videos</b></p>
       </aside>
-      <aside>
-        <object #png type="image/svg+xml" data="/assets/Icons/project/png.svg" class="icon">
+      <aside *ngIf="currentProject?.images?.length" (dblclick)="openModal('png')" #png>
+        <object type="image/svg+xml" data="/assets/Icons/project/png.svg" class="icon">
           Votre navigateur ne supporte pas les SVGs
         </object>
         <p><b>Images</b></p>
       </aside>
-      <aside>
-        <object #wav type="image/svg+xml" data="/assets/Icons/project/wav.svg" class="icon">
+      <aside *ngIf="" (dblclick)="openModal('wav')" #wav>
+        <object type="image/svg+xml" data="/assets/Icons/project/wav.svg" class="icon">
           Votre navigateur ne supporte pas les SVGs
         </object>
         <p><b>TTS</b></p>
       </aside>
-      <aside>
-
-        <object #txt type="image/svg+xml" data="/assets/Icons/project/txt.svg" class="icon">
+      <aside *ngIf="currentProject?.responseChatGPT?.length" (dblclick)="openModal('txt')" #txt>
+        <object type="image/svg+xml" data="/assets/Icons/project/txt.svg" class="icon">
           Votre navigateur ne supporte pas les SVGs
         </object>
         <p><b>Text</b></p>
@@ -49,3 +48,60 @@
     </div>
   </article>
 </main>
+
+<dialog #dialogTxt class="modal--dialog-txt">
+  <article>
+    <h3>Confirm your action!</h3>
+    <p>
+      Mauris non nibh vel nisi sollicitudin malesuada.
+      Donec ut sagittis erat. Praesent eu eros felis.
+      Ut consectetur placerat pulvinar.
+    </p>
+    <footer>
+      <button (click)="closeModal('txt')" role="button" class="secondary">Cancel</button>
+      <button role="button">Confirm</button>
+    </footer>
+  </article>
+</dialog>
+<dialog #dialogPng class="modal--dialog-png">
+  <article>
+    <h3>Confirm your action!</h3>
+    <p>
+      Mauris non nibh vel nisi sollicitudin malesuada.
+      Donec ut sagittis erat. Praesent eu eros felis.
+      Ut consectetur placerat pulvinar.
+    </p>
+    <footer>
+      <button (click)="closeModal('png')" role="button" class="secondary">Cancel</button>
+      <button role="button">Confirm</button>
+    </footer>
+  </article>
+</dialog>
+<dialog #dialogWav class="modal--dialog-wav">
+  <article>
+    <h3>Confirm your action!</h3>
+    <p>
+      Mauris non nibh vel nisi sollicitudin malesuada.
+      Donec ut sagittis erat. Praesent eu eros felis.
+      Ut consectetur placerat pulvinar.
+    </p>
+    <footer>
+      <button (click)="closeModal('wav')" role="button" class="secondary">Cancel</button>
+      <button role="button">Confirm</button>
+    </footer>
+  </article>
+</dialog>
+<dialog #dialogMp4 class="modal--dialog-mp4">
+  <article>
+    <h3>Confirm your action!</h3>
+    <p>
+      Mauris non nibh vel nisi sollicitudin malesuada.
+      Donec ut sagittis erat. Praesent eu eros felis.
+      Ut consectetur placerat pulvinar.
+    </p>
+    <footer>
+      <button role="button" (click)="closeModal('mp4')" class="secondary">Cancel</button>
+      <button role="button">Confirm</button>
+    </footer>
+  </article>
+</dialog>

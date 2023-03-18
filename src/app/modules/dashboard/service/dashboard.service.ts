@@ -7,7 +7,18 @@ import {finalize, map, tap} from "rxjs";
 export type Project = {
   name: string,
   description: string,
-
+}
+export type CompleteProject = {
+  id: number;
+  name: string;
+  description: string;
+  mergeVideo: false;
+  responseChatGPT: string;
+  tts: string[];
+  user: number;
+  videos: string[];
+  images: string[];
+  created_date: string;
 }
 export const API_ROOT_URL = environment.ShortVision_API2;
 
@@ -23,6 +34,7 @@ export class DashboardService {
   userData!: Object;
   loading!: boolean;
 
+  completeProjects!: CompleteProject[];
   constructor(private httpClient: HttpClient) {
   }
   getDashboardData(id: number) {
@@ -34,6 +46,7 @@ export class DashboardService {
         projects.sort((a: any, b: any) => {
           return new Date(b.created_date).getTime() - new Date(a.created_date).getTime();
         });
+        this.completeProjects = projects;
         return {...response, projects};
       }),
       finalize(() => {
@@ -55,5 +68,10 @@ export class DashboardService {
           }
         )
       );
+  }
+  getProjectById(id: number) {
+    return this.completeProjects.filter((project: any) => {
+      return project.id === id;
+    })[0];
   }
 }

@@ -1,17 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {CompleteProject} from "../service/dashboard.service";
 
-export type CompleteProject = {
-  id: number;
-  name: string;
-  description: string;
-  mergeVideo: false;
-  responseChatGPT: string;
-  tts: string[];
-  user: number;
-  videos: string[];
-  images: string[];
-  created_date: string;
-}
+
 @Component({
   selector: 'app-project-card',
   templateUrl: './project-card.component.html',
@@ -25,6 +15,4 @@ export class ProjectCardComponent implements OnInit{
   ngOnInit(): void {
     console.log('ProjectCardComponent.ngOnInit()', this.project);
   }
-
-
 }

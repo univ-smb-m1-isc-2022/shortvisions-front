@@ -1,7 +1,6 @@
 import {AfterContentChecked, AfterContentInit, Component, OnInit} from '@angular/core';
-import {DashboardService} from "./service/dashboard.service";
+import {CompleteProject, DashboardService} from "./service/dashboard.service";
 import {Router} from "@angular/router";
-import {CompleteProject} from "./project-card/project-card.component";
 
 @Component({
   selector: 'app-dashboard',
@@ -21,7 +20,6 @@ export class DashboardComponent implements OnInit, AfterContentChecked {
     this.dashBoardService.getDashboardData(this.userId).subscribe(
       {
         next: (response: any) => {
-          console.log('RESPONSE FROM DASHBOARD COMPONENT', response);
           this.projects = response.projects;
           this.userName = response.username;
           console.log('PROJECTS', this.projects);
@@ -37,6 +35,10 @@ export class DashboardComponent implements OnInit, AfterContentChecked {
   onCreateProject() {
     this.router.navigate(['/dashboard/create-project']).then();
   }
+  onViewProject(id: number) {
+    console.log('VIEW PROJECT', id);
+    this.router.navigate(['/dashboard/project', id]).then();
+  }
   ngAfterContentChecked(): void {
     const grid = document.querySelector('.project--body--grid') as HTMLElement;
     const items = grid.children;
@@ -48,11 +50,6 @@ export class DashboardComponent implements OnInit, AfterContentChecked {
         (lastRowItems[lastRowItemCount - 1] as HTMLElement).style.gridColumnEnd = `span ${itemsPerRow - lastRowItemCount + 1}`;
       }
     }
-  }
-
-  onViewProject(id: number) {
-    console.log('VIEW PROJECT', id);
-    this.router.navigate(['/dashboard/project', id]).then();
   }
 }
 
