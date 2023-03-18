@@ -1,7 +1,6 @@
 #stage 1
 FROM node:latest as node
-RUN rm -rf nodes_modules
-RUN rm -rf package-lock.json
+COPY . .
 RUN npm install
 RUN npm run build --prod
 
