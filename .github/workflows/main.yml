@@ -26,21 +26,13 @@ jobs:
       - name: Build Project
         run: npm run build --prod
 
-      - name: Build and Push Docker image
-        uses: docker/build-push-action@v2
+      - name: Build Docker image
+        run: docker build -t shortVisions-front -f Dockerfile .
+
+      - name: Push to GitHub Packages of organization
+        uses: docker/build-push-action@v1
         with:
-          context: .
-          push: true
-          tags: docker.pkg.github.com/univ-smb-m1-isc-2022/shortvisions-front/short-visions-front:latest
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Deploy Docker image to GitHub Packages
-        uses: docker/login-action@v1
-        with:
           registry: docker.pkg.github.com
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Push Docker image to GitHub Packages
-        run: docker push docker.pkg.github.com/univ-smb-m1-isc-2022/shortvisions-front/short-visions-front:latest
+          repository: univ-smb-m1-isc-2022/shortVisions-front/main
