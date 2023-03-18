@@ -1,4 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-project-view',
@@ -11,6 +12,10 @@ export class ProjectViewComponent implements OnInit{
   @ViewChild('wav') wav: ElementRef<HTMLAudioElement> | undefined;
   @ViewChild('txt') mp3: ElementRef<HTMLAudioElement> | undefined;
 
-  constructor() {}
+  constructor(private router:Router) {}
   ngOnInit(): void {}
+
+  onBackArrowClick(){
+    this.router.navigate(['/dashboard']).then();
+  }
 }

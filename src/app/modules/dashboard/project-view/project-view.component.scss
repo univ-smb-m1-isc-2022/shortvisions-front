@@ -46,7 +46,7 @@ button {
   border: 1px solid var(--color);
   border-radius: 4px;
   padding: 4px;
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3); /* ajouter une ombre */
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
 }
 .arrow:active {
   transform: translateY(2px);
