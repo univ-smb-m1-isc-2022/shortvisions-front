@@ -27,7 +27,6 @@
     box-shadow: none;
   }
 }
-
 .register--form--flex-box{
   display: flex;
   flex-direction: column;
@@ -40,11 +39,8 @@
 article div:nth-of-type(2) {
   background-color: #374956;
   background-image: url("/assets/hero/Head.png");
-  background-position: center;
-  background-size: initial;
+  background-size: cover;
 }
-
-
 @media (min-width: 992px) {
   .grid > div:nth-of-type(2) {
     display: block;
