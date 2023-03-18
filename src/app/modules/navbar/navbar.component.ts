@@ -14,8 +14,7 @@ export class NavbarComponent implements OnInit {
 
 
   async onIconClick() {
-    console.log("icon clicked")
-    console.log(sessionStorage.getItem('token'))
+
     if (sessionStorage.getItem('token')) {
       await this.router.navigate(['/dashboard'])
     } else {
@@ -34,5 +33,9 @@ export class NavbarComponent implements OnInit {
   }
   onLogOut() {
     this.userToken.removeToken();
+    this.router.navigate(['/']).then()
+  }
+  onLogIn() {
+    this.router.navigate(['/login']).then()
   }
 }

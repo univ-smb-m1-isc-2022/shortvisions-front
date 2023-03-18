@@ -14,7 +14,7 @@ import {canActivateTeam} from "../../auth/auth.guard";
 import {ModalService} from "./project-view/modal.service";
 
 const routes: Routes = [
-  {path: '', component: DashboardComponent,canActivate:[canActivateTeam]},
+  {path: '', component: DashboardComponent,canActivate:[canActivateTeam], data:{animation: 'fade'}},
   {path:'create-project', component: CreateProjectComponent,canActivate:[canActivateTeam]},
   {path: 'project/:id', component: ProjectViewComponent,canActivate:[canActivateTeam]}
 ]

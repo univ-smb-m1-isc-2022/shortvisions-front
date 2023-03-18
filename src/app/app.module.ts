@@ -12,7 +12,7 @@ import {
 import {PermissionsService, UserToken} from "./auth/auth.guard";
 import { TruncatePipe } from './pipes/truncate.pipe';
 import {HttpInterceptorProviders} from "./headers";
-import { TruncateProjectDescrPipe } from './pipes/truncate-project-descr.pipe';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -26,7 +26,8 @@ import { TruncateProjectDescrPipe } from './pipes/truncate-project-descr.pipe';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [
     PermissionsService,
