@@ -27,11 +27,9 @@ jobs:
 
       - name: Build Docker image
         run: docker build -t shortvisions-front -f Dockerfile .
-
+      
       - name: Push to GitHub Packages of organization
-        uses: docker/build-push-action@v1
-        with:
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-          registry: docker.pkg.github.com
-          repository: univ-smb-m1-isc-2022/shortvisions-front/main
+          run: |
+          echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+          docker tag shortvisions-front ghcr.io/univ-smb-m1-isc-2022/shortvisions-front:latest
+          docker push ghcr.io/univ-smb-m1-isc-2022/shortvisions-front:latest
