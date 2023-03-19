@@ -33,14 +33,15 @@
             <app-loader *ngIf="isVideoLoading" class="loader" ></app-loader>
         </form>
       </section>
-
     </div>
-    <div class="alert-danger alert" *ngIf="videoForm.touched && videoForm.invalid">
-      <p>a video name is required</p>
+    <div class="alert-danger alert" *ngIf="videoForm.touched && videoForm.invalid && !currentProject?.videos?.length">
+      <p>at least one video name is required</p>
     </div>
-
+    <div class="alert-warning alert" *ngIf="videoForm.touched && videoForm.invalid">
+      <p>Empty video title are not allowed</p>
+    </div>
     <div class="project--view--grid">
-      <aside *ngIf="currentProject?.videos?.length" (dblclick)="openModal('mp4')" #mp4>
+      <aside *ngFor="let video of currentProject?.videos" (dblclick)="openModal('mp4')" #mp4>
         <object type="image/svg+xml" data="/assets/Icons/project/mp4.svg" class="icon">
           Votre navigateur ne supporte pas les SVGs
         </object>

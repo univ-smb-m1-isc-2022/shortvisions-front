@@ -49,6 +49,7 @@
 }
 .start--process--button{
   all: unset;
+  margin-bottom: calc(var(--spacing)*2);
   text-align: center;
   width: auto;
   height: auto;

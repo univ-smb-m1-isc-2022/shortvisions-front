@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {Router} from "@angular/router";
 import {ModalService} from "./modal.service";
 import {CompleteProject, DashboardService} from "../service/dashboard.service";
@@ -24,32 +24,51 @@ export class ProjectViewComponent implements OnInit, OnDestroy {
 
   videoForm!: FormGroup;
   isProcessStarted!: boolean;
-  currentProject!: CompleteProject;
 
-  isVideoLoadingSub!:Subscription;
+  //Observables
+  isVideoLoadingSub!: Subscription;
   isVideoLoading!: boolean;
+  currentProject!: CompleteProject | undefined;
+  currentProjectSub!: Subscription;
+
   constructor(private userService: UserService,
               private dashboardService: DashboardService,
               private router: Router,
               private modalService: ModalService) {
   }
 
+
   ngOnDestroy(): void {
     this.isVideoLoadingSub.unsubscribe();
-    }
+    this.currentProjectSub.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.isVideoLoadingSub = this.dashboardService.loading$.subscribe(
-      (isLoading:boolean) => {this.isVideoLoading = isLoading;}
+      (isLoading: boolean) => {
+        this.isVideoLoading = isLoading;
+      }
     )
     this.videoForm = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.minLength(3)]),
     });
-
     this.isProcessStarted = false;
-    this.currentProject = this.dashboardService
-      .getProjectById(this.getProjectByUrl());
-    console.log('ProjectView', this.currentProject);
+    this.currentProjectSub = this.dashboardService.currentProject$.subscribe(
+      (project: CompleteProject | undefined) => {
+        this.currentProject = project;
+      }
+    );
+    // this.currentProject = this.dashboardService.getProjectById(this.getProjectByUrl());
+    this.dashboardService.getCurrentProject(
+      this.userService.getUser().id as number,
+      this.getProjectByUrl()
+    ).subscribe(
+      (project: CompleteProject) => {
+        console.log('currentProject', this.currentProject);
+      }
+    )
+    ;
+
   }
 
   onBackArrowClick() {
@@ -115,10 +134,12 @@ export class ProjectViewComponent implements OnInit, OnDestroy {
       this.userService.getUser().id as number,
       this.getProjectByUrl()
     ).subscribe((response: any) => {
-      console.log('respFromComponent',response);
+        console.log('respFromComponent', response);
+        this.currentProject?.videos.push(response);
       }
     );
   }
+
   getProjectByUrl() {
     return +this.router.url.split('/')[3]
   }
