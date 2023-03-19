@@ -12,18 +12,32 @@ import {
 } from '@angular/core';
 import {Router} from "@angular/router";
 import {ModalService} from "./modal.service";
-import {CompleteProject, DashboardService} from "../service/dashboard.service";
+import {CompleteProject, DashboardService, Video} from "../service/dashboard.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../../globalService/user.service";
 import {Subscription} from "rxjs";
 
+
+export type Step = {
+  index: number;
+  current: string;
+}
 @Component({
   selector: 'app-project-view',
   templateUrl: './project-view.component.html',
   styleUrls: ['./project-view.component.scss']
 })
 export class ProjectViewComponent implements OnInit, OnDestroy, AfterContentChecked {
+
+
+  steps = [
+    'Video',
+    'Text',
+    'Merge',
+  ]
+  currentStep!: Step;
   videoForm!: FormGroup;
+  ttsForm!: FormGroup;
   isProcessStarted!: boolean;
 
   //Observables
@@ -57,6 +71,10 @@ export class ProjectViewComponent implements OnInit, OnDestroy, AfterContentChec
   }
 
   ngOnInit(): void {
+    this.currentStep = {
+      index: 0,
+      current: this.steps[0]
+    };
     this.isVideoLoadingSub = this.dashboardService.loading$.subscribe(
       (isLoading: boolean) => {
         this.isVideoLoading = isLoading;
@@ -64,6 +82,9 @@ export class ProjectViewComponent implements OnInit, OnDestroy, AfterContentChec
     )
     this.videoForm = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    });
+    this.ttsForm = new FormGroup({
+      text: new FormControl('', [Validators.required, Validators.minLength(9)]),
     });
     this.isProcessStarted = false;
     this.currentProjectSub = this.dashboardService.currentProject$.subscribe(
@@ -181,6 +202,21 @@ export class ProjectViewComponent implements OnInit, OnDestroy, AfterContentChec
 
     }
   }
+  deleteVideo(videoId:number) {
+    this.dashboardService.deleteVideo(
+      this.userService.getUser().id as number,
+      this.getProjectByUrl(),
+      videoId
+    ).subscribe((response: any) => {
+        if (this.currentProject) {
+          this.currentProject.videos = this.currentProject.videos.filter((video: Video) => video.id !== videoId);
+        }
+      }
+    );
+  }
 
-  deleteVideo(video: Video) {}
+  nextStep() {
+    this.currentStep.index++;
+    this.currentStep.current = this.steps[this.currentStep.index];
+  }
 }

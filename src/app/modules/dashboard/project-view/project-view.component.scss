@@ -1,5 +1,4 @@
-.project--body--grid--header{
-}
+
 .tools {
   display: flex;
   align-items: center;
@@ -31,17 +30,19 @@
   align-items: center;
   place-items: center;
   gap: .75rem;
-  column-gap: -1;
-  .project--view--process--form-validate{
-    width: fit-content;
-    height: fit-content;
-    font-size: var(--font-size);
-    background-color: #00ca22;
-    border:none;
-    color: #fbfbfb;
-  }
+ }
+#textAI{
+  width: 60vw;
 }
 
+.project--view--process--form-validate{
+  width: fit-content;
+  height: fit-content;
+  font-size: var(--font-size);
+  background-color: #00ca22;
+  border:none;
+  color: #fbfbfb;
+}
 .project--view--process{
   display:grid;
   place-items: center;
@@ -108,7 +109,7 @@
   place-items: center;
   overflow: visible;
   aside {
-    background: var(--primary-inverse);
+    background-color: var(--primary-inverse);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -129,7 +130,6 @@
     transform: scale(1.5);
     transition: all .2s ease-in-out;
     border: 3px solid var(--color-primary);
-    background-color: rgba(0, 0, 0, 0.06);
     border-radius: 5px;
     box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.2);
     cursor: pointer;

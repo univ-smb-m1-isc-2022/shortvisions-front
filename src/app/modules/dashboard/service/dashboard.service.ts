@@ -68,6 +68,7 @@ export class DashboardService {
 
   constructor(private httpClient: HttpClient) {
   }
+
   getDashboardData(id: number) {
     this.loading$.next(true);
     return this.httpClient.get(API_ROOT_URL + this.projectPostfFix + id).pipe(
@@ -103,7 +104,7 @@ export class DashboardService {
   getProjectById(id: number): CompleteProject | undefined {
     const project = this.completeProjects$.value.find(p => p.id === id);
     console.log('id', id)
-    console.log('project',project)
+    console.log('project', project)
     if (project) {
       this.currentProject$.next(project);
     }
@@ -130,7 +131,7 @@ export class DashboardService {
       );
   }
 
-  getCurrentProject(userId:number, projectId:number) {
+  getCurrentProject(userId: number, projectId: number) {
     //   http://localhost:8080/api/user/projectSection/:userid/projects/:projectid
     return this.httpClient.get(API_ROOT_URL +
       this.createProjectSuffix +
@@ -145,5 +146,23 @@ export class DashboardService {
         )
       );
   }
+
+  deleteVideo(userId: number, projectId: number, videoId: number) {
+    //http://localhost:8080/api/user/videoSection/:userID/projects/:projectId/video/:VideoId
+    return this.httpClient.delete(API_ROOT_URL +
+      this.createVideoSuffix +
+      userId +
+      this.createVideoPostfix +
+      projectId +
+      '/video/' +
+      videoId)
+      .pipe(
+        tap((response: any) => {
+            this.currentProject$.next(this.currentProject$.value);
+          }
+        )
+      );
+  }
 }
+
 
