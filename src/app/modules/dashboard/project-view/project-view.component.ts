@@ -22,6 +22,7 @@ export type Step = {
   index: number;
   current: string;
 }
+
 @Component({
   selector: 'app-project-view',
   templateUrl: './project-view.component.html',
@@ -37,14 +38,17 @@ export class ProjectViewComponent implements OnInit, OnDestroy, AfterContentChec
   ]
   currentStep!: Step;
   videoForm!: FormGroup;
+  textForm!: FormGroup;
   ttsForm!: FormGroup;
   isProcessStarted!: boolean;
 
   //Observables
-  isVideoLoadingSub!: Subscription;
-  isVideoLoading!: boolean;
+  isAppLoadingSub!: Subscription;
+  isAppLoading!: boolean;
   currentProject!: CompleteProject | undefined;
   currentProjectSub!: Subscription;
+
+
   lastAsideClicked: any = null;
 
   constructor(private userService: UserService,
@@ -66,7 +70,7 @@ export class ProjectViewComponent implements OnInit, OnDestroy, AfterContentChec
   }
 
   ngOnDestroy(): void {
-    this.isVideoLoadingSub.unsubscribe();
+    this.isAppLoadingSub.unsubscribe();
     this.currentProjectSub.unsubscribe();
   }
 
@@ -75,13 +79,16 @@ export class ProjectViewComponent implements OnInit, OnDestroy, AfterContentChec
       index: 0,
       current: this.steps[0]
     };
-    this.isVideoLoadingSub = this.dashboardService.loading$.subscribe(
+    this.isAppLoadingSub = this.dashboardService.loading$.subscribe(
       (isLoading: boolean) => {
-        this.isVideoLoading = isLoading;
+        this.isAppLoading = isLoading;
       }
     )
     this.videoForm = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    });
+    this.textForm = new FormGroup({
+      content: new FormControl('', [Validators.required, Validators.minLength(9)]),
     });
     this.ttsForm = new FormGroup({
       text: new FormControl('', [Validators.required, Validators.minLength(9)]),
@@ -112,7 +119,7 @@ export class ProjectViewComponent implements OnInit, OnDestroy, AfterContentChec
     if (this.videoForm.invalid) {
       return;
     }
-    this.isVideoLoading = true;
+    this.isAppLoading = true;
     this.dashboardService.postVideoByName(
       this.videoForm.value.name,
       this.userService.getUser().id as number,
@@ -169,6 +176,7 @@ export class ProjectViewComponent implements OnInit, OnDestroy, AfterContentChec
     target.style.position = 'absolute';
     this.lastAsideClicked = target;
   }
+
   private resetAside(target: HTMLElement) {
     target.style.cssText = 'background: var(--primary-inverse);' +
       ' display: flex; flex-direction: column;' +
@@ -180,6 +188,7 @@ export class ProjectViewComponent implements OnInit, OnDestroy, AfterContentChec
       ' border-radius: 5px;' +
       ' box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.2);'
   }
+
   toggleAnimate(target: EventTarget | null) {
     // if target is an aside element
     if (target && (target as HTMLElement).tagName === 'ASIDE') {
@@ -189,7 +198,7 @@ export class ProjectViewComponent implements OnInit, OnDestroy, AfterContentChec
       const translateX = centerX - rect.left - rect.width / 2;
       const translateY = centerY - rect.top - rect.height / 2;
       const targetElement = target as HTMLElement;
-      if(this.lastAsideClicked && this.lastAsideClicked!==targetElement){
+      if (this.lastAsideClicked && this.lastAsideClicked !== targetElement) {
         this.resetVideo(targetElement);
       }
       targetElement.style.transform = `scale(4) translate(${translateX}px, ${translateY}px)`;
@@ -202,7 +211,8 @@ export class ProjectViewComponent implements OnInit, OnDestroy, AfterContentChec
 
     }
   }
-  deleteVideo(videoId:number) {
+
+  deleteVideo(videoId: number) {
     this.dashboardService.deleteVideo(
       this.userService.getUser().id as number,
       this.getProjectByUrl(),
@@ -219,4 +229,46 @@ export class ProjectViewComponent implements OnInit, OnDestroy, AfterContentChec
     this.currentStep.index++;
     this.currentStep.current = this.steps[this.currentStep.index];
   }
+
+  aiGeneratedText() {
+    if (this.textForm.invalid) {
+      return;
+    }
+    this.isAppLoading = true;
+    this.dashboardService.generateText(
+      this.userService.getUser().id as number,
+      this.getProjectByUrl(),
+      this.textForm.value.content
+    ).subscribe(
+      (response: any) => {
+        console.log('respFromComponent', response);
+        if (this.currentProject) this.currentProject.responseChatGPT = response.response;
+      }
+    )
+  }
+  generateVoiceOver() {
+    this.dashboardService.generateTTS(
+      this.userService.getUser().id as number,
+      this.getProjectByUrl(),
+      this.currentProject?.responseChatGPT as string
+    ).subscribe(
+      (response: any) => {
+        console.log('respFromComponent', response);
+        if(this.currentProject) this.currentProject.tts = response;
+
+      }
+    )
+  }
+  mergeVideo() {
+    this.dashboardService.mergeVideo(
+      this.userService.getUser().id as number,
+      this.getProjectByUrl(),
+    ).subscribe(
+      (response: any) => {
+        console.log('respFromComponent', response);
+        if(this.currentProject) this.currentProject.mergeVideo = true;
+      }
+    );
+  }
+
 }

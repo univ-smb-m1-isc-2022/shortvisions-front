@@ -34,7 +34,12 @@
 #textAI{
   width: 60vw;
 }
-
+.tts{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 .project--view--process--form-validate{
   width: fit-content;
   height: fit-content;

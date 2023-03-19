@@ -13,6 +13,7 @@ import { ProjectViewComponent } from './project-view/project-view.component';
 import {canActivateTeam} from "../../auth/auth.guard";
 import {ModalService} from "./project-view/modal.service";
 import { LoaderComponent } from './project-view/loader/loader.component';
+import { FinalVideoComponent } from './project-view/final-video/final-video.component';
 
 const routes: Routes = [
   {path: '', component: DashboardComponent,canActivate:[canActivateTeam], data:{animation: 'fade'}},
@@ -28,7 +29,8 @@ const routes: Routes = [
     CreateProjectComponent,
     TruncateProjectDescrPipe,
     ProjectViewComponent,
-    LoaderComponent
+    LoaderComponent,
+    FinalVideoComponent
   ],
   imports: [
     CommonModule,

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../../environments/environment";
-import {finalize, map, tap} from "rxjs";
+import {finalize, map, Observable, tap} from "rxjs";
 import {BehaviorSubject} from 'rxjs';
 
 
@@ -13,7 +13,7 @@ export type CompleteProject = {
   id: number;
   name: string;
   description: string;
-  mergeVideo: false;
+  mergeVideo: boolean;
   responseChatGPT: string;
   tts: Tts;
   user: number;
@@ -55,16 +55,15 @@ export class DashboardService {
   projectPostfFix = '/users/'
   createProjectSuffix = '/user/projectSection/'
   createProjectPostfix = '/projects'
-
   createVideoSuffix = '/user/videoSection/'
   createVideoPostfix = '/projects/'
-  userData!: Object;
   readonly loading$ = new BehaviorSubject<boolean>(false);
 
   completeProjects$ = new BehaviorSubject<CompleteProject[]>([]);
 
   readonly currentProject$ = new BehaviorSubject<CompleteProject | undefined>(undefined);
 
+  readonly finalVideo$ = new BehaviorSubject<string | undefined>(undefined);
 
   constructor(private httpClient: HttpClient) {
   }
@@ -123,9 +122,8 @@ export class DashboardService {
         '/videos', {name})
       .pipe(
         finalize(() => {
-            this.loading$.next(false)
             this.currentProject$.next(this.currentProject$.value);
-            console.log('currentProject', this.currentProject$.value)
+            this.loading$.next(false)
           }
         )
       );
@@ -163,6 +161,87 @@ export class DashboardService {
         )
       );
   }
+
+  generateText(userId: number, projectId: number, text: string) {
+    //@TODO REMOVE ROLE
+    this.loading$.next(true)
+    // http://localhost:8080/api/user/chatGPTSection/:userId/projects/:projectId/chatGPT
+    return this.httpClient.post(API_ROOT_URL +
+      '/user/chatGPTSection/' +
+      userId +
+      '/projects/' +
+      projectId +
+      '/chatGPT', {"content": text, "role": "user"})
+      .pipe(
+        tap((response: any) => {
+            this.currentProject$.next(this.currentProject$.value);
+          },
+        ),
+        finalize(() => {
+            this.loading$.next(false)
+          }
+        )
+      );
+  }
+
+  generateTTS(userId: number, projectId: number, text: string) {
+    // http://localhost:8080/api/user/ttsSection/1/projects/1/tts
+    this.loading$.next(true)
+    return this.httpClient.post(API_ROOT_URL +
+      '/user/ttsSection/' +
+      userId +
+      '/projects/' +
+      projectId +
+      '/tts',
+      {
+        "model": 'tts_models/en/ljspeech/vits',
+        "outputFileName": "output_" + Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15) + ".wav",
+      })
+      .pipe(
+        tap((response: any) => {
+            this.currentProject$.next(this.currentProject$.value);
+          }
+        ),
+        finalize(() => {
+            this.loading$.next(false)
+          }
+        )
+      );
+  }
+
+  mergeVideo(userId: number, projectId: number) {
+    //   http://localhost:8080/api/user/mergeSection/1/projects/1/videos/merge
+    this.loading$.next(true)
+    return this.httpClient.post(API_ROOT_URL +
+      '/user/mergeSection/' +
+      userId +
+      '/projects/' +
+      projectId +
+      '/videos/merge', {})
+      .pipe(
+        tap((response: any) => {
+            this.currentProject$.next(this.currentProject$.value);
+          }
+        ),
+        finalize(() => {
+            this.loading$.next(false)
+          }
+        )
+      );
+  }
+
+  getVideo(userId: number, projectId: number): Observable<string> {
+    const url = `${API_ROOT_URL}/user/mergeSection/${userId}/projects/${projectId}/video/merge`;
+    this.loading$.next(true);
+    return this.httpClient.get(url, {responseType: 'blob'})
+      .pipe(
+        map((response: Blob) => URL.createObjectURL(response)),
+        tap((url: string) => this.finalVideo$.next(url)),
+        finalize(() => this.loading$.next(false))
+      );
+  }
 }
+
+
 
 

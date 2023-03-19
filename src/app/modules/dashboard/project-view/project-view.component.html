@@ -1,4 +1,5 @@
 <main (click)="resetVideo($event.target)" class="container-fluid">
+
   <article>
     <header class="project--view--header">
       <div class="tools">
@@ -21,125 +22,80 @@
       </svg>
       </button>
     </header>
-
-    <div class="project--view--process">
-      <button (click)="startProcess()" *ngIf="!isProcessStarted" class="start--process--button">Start Process</button>
-      <section *ngIf="isProcessStarted && currentStep.current==steps[0]">
-        <p>Search for a video</p>
-        <form [formGroup]="videoForm" class="project--view--process--form" (ngSubmit)="onSubmitVideo()">
-          <label for="video">
-            <input formControlName="name" id="video" type="text" placeholder="Exemple: Cars">
-          </label>
-          <button *ngIf="!isVideoLoading" type="submit" class="project--view--process--form-validate">✓</button>
-          <app-loader *ngIf="isVideoLoading" class="loader"></app-loader>
-        </form>
+    <ng-container *ngIf="currentProject?.mergeVideo">
+      <section class="project--view--finalOutPut">
+        <h2>Here is your final video</h2>
+        <app-final-video></app-final-video>
       </section>
-      <ng-container *ngIf="currentStep.current==steps[1]">
-        <section>
-          <p>Generate your text with AI</p>
-          <form class="project--view--process--form" [formGroup]="ttsForm">
-            <label for="textAI">
-              <input id="textAI" type="text" formControlName="tts" placeholder="Exemple: My video is about chimps that eats coconuts underwater">
+    </ng-container>
+
+    <ng-container *ngIf="!currentProject?.mergeVideo">
+      <div class="project--view--process">
+        <button (click)="startProcess()" *ngIf="!isProcessStarted" class="start--process--button">Start Process</button>
+        <section *ngIf="isProcessStarted && currentStep.current==steps[0]">
+          <p>Search for a video</p>
+          <form [formGroup]="videoForm" class="project--view--process--form" (ngSubmit)="onSubmitVideo()">
+            <label for="video">
+              <input formControlName="name" id="video" type="text" placeholder="Exemple: Cars">
             </label>
-            <button *ngIf="!isVideoLoading" class="project--view--process--form-validate" type="submit">✓</button>
-            <app-loader *ngIf="false" class="loader"></app-loader>
+            <button *ngIf="!isAppLoading" type="submit" class="project--view--process--form-validate">✓</button>
+            <app-loader *ngIf="isAppLoading" class="loader"></app-loader>
           </form>
         </section>
+        <ng-container *ngIf="currentStep.current==steps[1]">
+          <section>
+            <p>Generate your text with AI</p>
+            <form (ngSubmit)="aiGeneratedText()" class="project--view--process--form" [formGroup]="textForm">
+              <label for="textAI">
+                <input id="textAI" type="text" formControlName="content"
+                       placeholder="Exemple: My video is about chimps that eats coconuts underwater">
+              </label>
+              <button type="submit" *ngIf="!isAppLoading" class="project--view--process--form-validate">✓</button>
+              <app-loader *ngIf="isAppLoading" class="loader"></app-loader>
+            </form>
+          </section>
+        </ng-container>
+      </div>
+      <div class="alert-danger alert" *ngIf="videoForm.touched && videoForm.invalid && !currentProject?.videos?.length">
+        <p>at least one video name is required</p>
+      </div>
+      <div class="alert-warning alert" *ngIf="videoForm.touched && videoForm.invalid">
+        <p>Empty video title are not allowed</p>
+      </div>
+      <div class="project--view--grid">
+        <ng-container *ngIf="currentStep.current==steps[0]">
+          <aside (click)="toggleAnimate($event.target)" *ngFor="let video of currentProject?.videos;">
+            <span class="cross" (click)="deleteVideo(video.id)">X</span>
+            <p><b>{{video?.name | titlecase}}</b></p>
+            <video (dblclick)="toggleFullscreen($event.target)" controls [poster]="video.urlVideo">
+              <source src="{{video.urlVideo}}" type="video/mp4">
+            </video>
+          </aside>
+        </ng-container>
+      </div>
+      <ng-container *ngIf="currentStep.current==steps[1]">
+        <section>
+          <p><b>You can edit your text before generating voice-over</b></p>
+          <app-loader *ngIf="isAppLoading" class="loader"></app-loader>
+          <p class="p--">
+            {{currentProject?.responseChatGPT}}
+          </p>
+        </section>
       </ng-container>
-    </div>
-    <div class="alert-danger alert" *ngIf="videoForm.touched && videoForm.invalid && !currentProject?.videos?.length">
-      <p>at least one video name is required</p>
-    </div>
-    <div class="alert-warning alert" *ngIf="videoForm.touched && videoForm.invalid">
-      <p>Empty video title are not allowed</p>
-    </div>
-    <div class="project--view--grid">
-      <ng-container *ngIf="currentStep.current==steps[0]">
-        <aside (click)="toggleAnimate($event.target)" *ngFor="let video of currentProject?.videos;">
-          <span class="cross" (click)="deleteVideo(video.id)">X</span>
-          <p><b>{{video?.name | titlecase}}</b></p>
-          <video (dblclick)="toggleFullscreen($event.target)" controls [poster]="video.urlVideo">
-            <source src="{{video.urlVideo}}" type="video/mp4">
-          </video>
-        </aside>
+      <ng-container *ngIf="currentStep.current==steps[2] && currentProject?.responseChatGPT">
+        <section class="tts">
+          <button (click)="generateVoiceOver()" class="">Generate your voice-over</button>
+          <app-loader *ngIf="isAppLoading" class="loader"></app-loader>
+        </section>
       </ng-container>
-      <aside *ngIf="currentProject?.images?.length" #png>
-        <object type="image/svg+xml" data="/assets/Icons/project/png.svg" class="icon">
-          Votre navigateur ne supporte pas les SVGs
-        </object>
-        <p><b>Images</b></p>
-      </aside>
-      <!--  <object type="image/svg+xml" data="/assets/Icons/project/wav.svg" class="icon">
-          Votre navigateur ne supporte pas les SVGs
-        </object>
-        <p><b>TTS</b></p>-->
-      <!--      <aside *ngIf="currentProject?.responseChatGPT?.length" #txt>
-        <object type="image/svg+xml" data="/assets/Icons/project/txt.svg" class="icon">
-          Votre navigateur ne supporte pas les SVGs
-        </object>
-        <p><b>Text</b></p>
-      </aside>-->
-    </div>
-
-    <button class="project--view--grid--button-next-step" (click)="nextStep()">Next</button>
+      <ng-container *ngIf="currentStep.current==steps[3]">
+        <section>
+          <button (click)="mergeVideo()">You're Almost Done! Just press me..</button>
+          <app-loader *ngIf="isAppLoading" class="loader"></app-loader>
+        </section>
+      </ng-container>
+      <button class="project--view--grid--button-next-step" (click)="nextStep()">Next</button>
+    </ng-container>
   </article>
 </main>
 
-<!--
-<dialog #dialogTxt class="modal&#45;&#45;dialog-txt">
-  <article>
-    <h3>Confirm your action!</h3>
-    <p>
-      Mauris non nibh vel nisi sollicitudin malesuada.
-      Donec ut sagittis erat. Praesent eu eros felis.
-      Ut consectetur placerat pulvinar.
-    </p>
-    <footer>
-      <button (click)="closeModal('txt')" role="button" class="secondary">Cancel</button>
-      <button role="button">Confirm</button>
-    </footer>
-  </article>
-</dialog>
-<dialog #dialogPng class="modal&#45;&#45;dialog-png">
-  <article>
-    <h3>Confirm your action!</h3>
-    <p>
-      Mauris non nibh vel nisi sollicitudin malesuada.
-      Donec ut sagittis erat. Praesent eu eros felis.
-      Ut consectetur placerat pulvinar.
-    </p>
-    <footer>
-      <button (click)="closeModal('png')" role="button" class="secondary">Cancel</button>
-      <button role="button">Confirm</button>
-    </footer>
-  </article>
-</dialog>
-<dialog #dialogWav class="modal&#45;&#45;dialog-wav">
-  <article>
-    <h3>Confirm your action!</h3>
-    <p>
-      Mauris non nibh vel nisi sollicitudin malesuada.
-      Donec ut sagittis erat. Praesent eu eros felis.
-      Ut consectetur placerat pulvinar.
-    </p>
-    <footer>
-      <button (click)="closeModal('wav')" role="button" class="secondary">Cancel</button>
-      <button role="button">Confirm</button>
-    </footer>
-  </article>
-</dialog>
-<dialog #dialogMp4 class="modal&#45;&#45;dialog-mp4">
-  <article>
-    <h3></h3>
-    <p>
-      Mauris non nibh vel nisi sollicitudin malesuada.
-      Donec ut sagittis erat. Praesent eu eros felis.
-      Ut consectetur placerat pulvinar.
-    </p>
-    <footer>
-      <button role="button" (click)="closeModal('mp4')" class="secondary">Cancel</button>
-      <button role="button">Confirm</button>
-    </footer>
-  </article>
-</dialog>
--->
