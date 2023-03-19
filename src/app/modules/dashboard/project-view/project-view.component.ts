@@ -1,14 +1,18 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Router} from "@angular/router";
 import {ModalService} from "./modal.service";
 import {CompleteProject, DashboardService} from "../service/dashboard.service";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {UserService} from "../../../globalService/user.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-project-view',
   templateUrl: './project-view.component.html',
   styleUrls: ['./project-view.component.scss']
 })
-export class ProjectViewComponent implements OnInit {
+export class ProjectViewComponent implements OnInit, OnDestroy {
+
   @ViewChild('png') png: ElementRef<HTMLImageElement> | undefined;
   @ViewChild('mp4') mp4: ElementRef<HTMLVideoElement> | undefined;
   @ViewChild('wav') wav: ElementRef<HTMLAudioElement> | undefined;
@@ -18,17 +22,40 @@ export class ProjectViewComponent implements OnInit {
   @ViewChild('dialogMp4') dialogMp4: ElementRef<HTMLDialogElement> | undefined;
   @ViewChild('dialogWav') dialogWav: ElementRef<HTMLDialogElement> | undefined;
 
+  videoForm!: FormGroup;
+  isProcessStarted!: boolean;
   currentProject!: CompleteProject;
-  constructor(private dashboardService:DashboardService,
+
+  isVideoLoadingSub!:Subscription;
+  isVideoLoading!: boolean;
+  constructor(private userService: UserService,
+              private dashboardService: DashboardService,
               private router: Router,
-              private modalService: ModalService) {}
-  ngOnInit(): void {
-    this.currentProject = this.dashboardService.getProjectById(+this.router.url.split('/')[3]);
-    console.log('ProjectView',this.currentProject);
+              private modalService: ModalService) {
   }
+
+  ngOnDestroy(): void {
+    this.isVideoLoadingSub.unsubscribe();
+    }
+
+  ngOnInit(): void {
+    this.isVideoLoadingSub = this.dashboardService.loading$.subscribe(
+      (isLoading:boolean) => {this.isVideoLoading = isLoading;}
+    )
+    this.videoForm = new FormGroup({
+      name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    });
+
+    this.isProcessStarted = false;
+    this.currentProject = this.dashboardService
+      .getProjectById(this.getProjectByUrl());
+    console.log('ProjectView', this.currentProject);
+  }
+
   onBackArrowClick() {
     this.router.navigate(['/dashboard']).then();
   }
+
   openModal(fileType: string): void {
     switch (fileType) {
       case 'mp4':
@@ -50,6 +77,7 @@ export class ProjectViewComponent implements OnInit {
         break;
     }
   }
+
   closeModal(fileType: string): void {
     switch (fileType) {
       case 'mp4':
@@ -73,5 +101,25 @@ export class ProjectViewComponent implements OnInit {
     }
   }
 
+  startProcess() {
+    this.isProcessStarted = true;
+  }
 
+  onSubmitVideo() {
+    if (this.videoForm.invalid) {
+      return;
+    }
+    this.isVideoLoading = true;
+    this.dashboardService.postVideoByName(
+      this.videoForm.value.name,
+      this.userService.getUser().id as number,
+      this.getProjectByUrl()
+    ).subscribe((response: any) => {
+      console.log('respFromComponent',response);
+      }
+    );
+  }
+  getProjectByUrl() {
+    return +this.router.url.split('/')[3]
+  }
 }

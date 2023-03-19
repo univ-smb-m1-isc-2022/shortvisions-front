@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../../environments/environment";
 import {finalize, map, tap} from "rxjs";
+import { BehaviorSubject } from 'rxjs';
 
 
 export type Project = {
@@ -44,26 +45,29 @@ export type Tts = {
   outputFileName: string;
   projectID: number;
 }
-
 export const API_ROOT_URL = environment.ShortVision_API;
-
 @Injectable({
   providedIn: 'root'
 })
-
 export class DashboardService {
 
   projectPostfFix = '/users/'
   createProjectSuffix = '/user/projectSection/'
   createProjectPostfix = '/projects'
+
+  createVideoSuffix = '/user/videoSection/'
+  createVideoPostfix = '/projects/'
   userData!: Object;
-  loading!: boolean;
+  loading$ = new BehaviorSubject<boolean>(false);
 
   completeProjects!: CompleteProject[];
+
+
   constructor(private httpClient: HttpClient) {
   }
+
   getDashboardData(id: number) {
-    this.loading = true;
+    this.loading$.next(true);
     this.userData = {token: sessionStorage.getItem('token')};
     return this.httpClient.get(API_ROOT_URL + this.projectPostfFix + id).pipe(
       map((response: any) => {
@@ -75,28 +79,46 @@ export class DashboardService {
         return {...response, projects};
       }),
       finalize(() => {
-        this.loading = false;
+        this.loading$.next(false)
       })
     );
   }
 
-  createProject(project: Project, id: number) {
-    this.loading = true;
+  createProject(project: Project, userId: number) {
+    this.loading$.next(true)
     return this.httpClient.post(
       API_ROOT_URL +
       this.createProjectSuffix +
-      id +
+      userId +
       this.createProjectPostfix, project)
       .pipe(
         finalize(() => {
-            this.loading = false;
+            this.loading$.next(false)
           }
         )
       );
   }
+
   getProjectById(id: number) {
     return this.completeProjects.filter((project: any) => {
       return project.id === id;
     })[0];
+  }
+
+  postVideoByName(name: string, userId: number, projectId: number) {
+    this.loading$.next(true)
+    //api/user/videoSection/:userId/projects/:ProjectId/videos
+    return this.httpClient
+      .post(API_ROOT_URL +
+        this.createVideoSuffix +
+        userId +
+        this.createVideoPostfix +
+        projectId +
+        '/videos', {name})
+      .pipe(
+        finalize(() => {
+          this.loading$.next(false)}
+        )
+      );
   }
 }

@@ -12,6 +12,7 @@ import {TruncateProjectDescrPipe} from "../../pipes/truncate-project-descr.pipe"
 import { ProjectViewComponent } from './project-view/project-view.component';
 import {canActivateTeam} from "../../auth/auth.guard";
 import {ModalService} from "./project-view/modal.service";
+import { LoaderComponent } from './project-view/loader/loader.component';
 
 const routes: Routes = [
   {path: '', component: DashboardComponent,canActivate:[canActivateTeam], data:{animation: 'fade'}},
@@ -26,7 +27,8 @@ const routes: Routes = [
     ProjectCardComponent,
     CreateProjectComponent,
     TruncateProjectDescrPipe,
-    ProjectViewComponent
+    ProjectViewComponent,
+    LoaderComponent
   ],
   imports: [
     CommonModule,

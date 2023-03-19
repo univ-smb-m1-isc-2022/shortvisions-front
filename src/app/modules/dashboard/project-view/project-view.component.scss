@@ -1,5 +1,4 @@
 .project--body--grid--header{
-
 }
 .tools {
   display: flex;
@@ -26,17 +25,58 @@
 .green {
   background-color: #00ca4e;
 }
+.project--view--process--form{
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  align-items: center;
+  place-items: center;
+  gap: .75rem;
+  column-gap: -1;
+  .project--view--process--form-validate{
+    width: fit-content;
+    height: fit-content;
+    font-size: var(--font-size);
+    background-color: #00ca22;
+    border:none;
+    color: #fbfbfb;
+  }
+}
 
-button {
+.project--view--process{
+  display:grid;
+  place-items: center;
+  grid-template-columns: 1fr;
+}
+.start--process--button{
   all: unset;
-  -webkit-appearance: none;
-  background: transparent;
+  text-align: center;
+  width: auto;
+  height: auto;
+  padding: 12.5px 30px;
   border: 0;
-  outline:0;
-
+  border-radius: 100px;
+  background-color: #ff8c00;
+  color: var(--primary-inverse);
+  font-weight: Bold;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+  &:hover {
+    background-color: #6fc5ff;
+    box-shadow: 0 0 20px #6fc5ff50;
+  }
+  &:active {
+    background-color: #3d94cf;
+    transition: all 0.25s;
+    -webkit-transition: all 0.25s;
+    box-shadow: none;
+  }
 }
 
 .arrow {
+  all: unset;
+  -webkit-appearance: none;
+  background: transparent;
+  outline:0;
   cursor: pointer;
   width: var(--font-size);
   height: var(--font-size);

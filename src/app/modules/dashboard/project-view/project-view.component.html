@@ -15,13 +15,32 @@
       <button (click)="onBackArrowClick()" class="arrow right">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="60px" height="80px"
              viewBox="0 0 50 80" xml:space="preserve">
-          <polyline id="polylineBack" fill="none" stroke="" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" points="
+          <polyline id="polylineBack" fill="none" stroke="" stroke-width="1" stroke-linecap="round"
+                    stroke-linejoin="round" points="
 	        0.375,0.375 45.63,38.087 0.375,75.8 "/>
       </svg>
       </button>
     </header>
+    <div class="project--view--process">
+      <button (click)="startProcess()" *ngIf="!isProcessStarted" class="start--process--button">Start Process</button>
+      <section *ngIf="isProcessStarted">
+        <p>Search for a video</p>
+        <form [formGroup]="videoForm" class="project--view--process--form" (ngSubmit)="onSubmitVideo()">
+          <label for="video">
+            <input formControlName="name" id="video" type="text" placeholder="Exemple: Cars">
+          </label>
+            <button *ngIf="!isVideoLoading" type="submit" class="project--view--process--form-validate">✓</button>
+            <app-loader *ngIf="isVideoLoading" class="loader" ></app-loader>
+        </form>
+      </section>
+
+    </div>
+    <div class="alert-danger alert" *ngIf="videoForm.touched && videoForm.invalid">
+      <p>a video name is required</p>
+    </div>
+
     <div class="project--view--grid">
-      <aside *ngIf="currentProject?.videos?.length" (dblclick)="openModal('mp4')"  #mp4>
+      <aside *ngIf="currentProject?.videos?.length" (dblclick)="openModal('mp4')" #mp4>
         <object type="image/svg+xml" data="/assets/Icons/project/mp4.svg" class="icon">
           Votre navigateur ne supporte pas les SVGs
         </object>
@@ -33,7 +52,7 @@
         </object>
         <p><b>Images</b></p>
       </aside>
-      <aside *ngIf="" (dblclick)="openModal('wav')" #wav>
+      <aside *ngIf="currentProject?.tts !== null" (dblclick)="openModal('wav')" #wav>
         <object type="image/svg+xml" data="/assets/Icons/project/wav.svg" class="icon">
           Votre navigateur ne supporte pas les SVGs
         </object>
