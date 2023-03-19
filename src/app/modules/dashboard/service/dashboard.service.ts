@@ -14,13 +14,38 @@ export type CompleteProject = {
   description: string;
   mergeVideo: false;
   responseChatGPT: string;
-  tts: string[];
+  tts: Tts;
   user: number;
-  videos: string[];
-  images: string[];
+  videos: Video[];
+  images: Images[];
   created_date: string;
 }
-export const API_ROOT_URL = environment.ShortVision_API2;
+export type Video = {
+  id: number;
+  name: string;
+  path: string;
+  urlVideo: string;
+  created_date: string;
+  projectID: number;
+}
+export type Images = {
+  id: number;
+  name: string;
+  path: string;
+  urlImage: string;
+  created_date: string;
+  projectID: number;
+}
+export type Tts = {
+  id: number;
+  text: string;
+  model: string;
+  path: string;
+  outputFileName: string;
+  projectID: number;
+}
+
+export const API_ROOT_URL = environment.ShortVision_API;
 
 @Injectable({
   providedIn: 'root'
