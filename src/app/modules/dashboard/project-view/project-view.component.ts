@@ -1,4 +1,15 @@
-import {Component, ElementRef, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {
+  AfterContentChecked,
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnChanges,
+  OnDestroy,
+  OnInit, QueryList,
+  SimpleChanges,
+  ViewChild,
+  ViewChildren
+} from '@angular/core';
 import {Router} from "@angular/router";
 import {ModalService} from "./modal.service";
 import {CompleteProject, DashboardService} from "../service/dashboard.service";
@@ -11,17 +22,7 @@ import {Subscription} from "rxjs";
   templateUrl: './project-view.component.html',
   styleUrls: ['./project-view.component.scss']
 })
-export class ProjectViewComponent implements OnInit, OnDestroy {
-
-  @ViewChild('png') png: ElementRef<HTMLImageElement> | undefined;
-  @ViewChild('mp4') mp4: ElementRef<HTMLVideoElement> | undefined;
-  @ViewChild('wav') wav: ElementRef<HTMLAudioElement> | undefined;
-  @ViewChild('txt') txt: ElementRef<HTMLAudioElement> | undefined;
-  @ViewChild('dialogTxt') dialogTxt: ElementRef<HTMLDialogElement> | undefined;
-  @ViewChild('dialogPng') dialogPng: ElementRef<HTMLDialogElement> | undefined;
-  @ViewChild('dialogMp4') dialogMp4: ElementRef<HTMLDialogElement> | undefined;
-  @ViewChild('dialogWav') dialogWav: ElementRef<HTMLDialogElement> | undefined;
-
+export class ProjectViewComponent implements OnInit, OnDestroy, AfterContentChecked {
   videoForm!: FormGroup;
   isProcessStarted!: boolean;
 
@@ -30,6 +31,7 @@ export class ProjectViewComponent implements OnInit, OnDestroy {
   isVideoLoading!: boolean;
   currentProject!: CompleteProject | undefined;
   currentProjectSub!: Subscription;
+  lastAsideClicked: any = null;
 
   constructor(private userService: UserService,
               private dashboardService: DashboardService,
@@ -37,6 +39,17 @@ export class ProjectViewComponent implements OnInit, OnDestroy {
               private modalService: ModalService) {
   }
 
+  ngAfterContentChecked(): void {
+    // this.videoElement?.changes.subscribe((videoElement: QueryList<ElementRef>) => {
+    //   console.log('videoElement', videoElement['_results']);
+    //   videoElement['_results'].forEach((video: ElementRef) => {
+    //     video.nativeElement.addEventListener('click', () => {
+    //       console.log('video', video.nativeElement);
+    //
+    //     });
+    //   });
+    // })
+  }
 
   ngOnDestroy(): void {
     this.isVideoLoadingSub.unsubscribe();
@@ -59,65 +72,15 @@ export class ProjectViewComponent implements OnInit, OnDestroy {
       }
     );
     // this.currentProject = this.dashboardService.getProjectById(this.getProjectByUrl());
-    this.dashboardService.getCurrentProject(
-      this.userService.getUser().id as number,
-      this.getProjectByUrl()
-    ).subscribe(
-      (project: CompleteProject) => {
-        console.log('currentProject', this.currentProject);
-      }
-    )
-    ;
-
+    this.dashboardService.getCurrentProject(this.userService.getUser().id as number, this.getProjectByUrl())
+      .subscribe((project: CompleteProject) => {
+          console.log('currentProject', this.currentProject);
+        }
+      );
   }
 
   onBackArrowClick() {
     this.router.navigate(['/dashboard']).then();
-  }
-
-  openModal(fileType: string): void {
-    switch (fileType) {
-      case 'mp4':
-        console.log('mp4', this.mp4);
-        this.dialogMp4?.nativeElement.setAttribute('open', 'true');
-        break;
-      case 'png':
-        console.log('png', this.png);
-        this.dialogPng?.nativeElement.setAttribute('open', 'true');
-        break;
-      case 'wav':
-        console.log('wav', this.wav);
-        this.dialogWav?.nativeElement.setAttribute('open', 'true');
-        break;
-      case 'txt':
-        this.dialogTxt?.nativeElement.setAttribute('open', 'true');
-        break;
-      default:
-        break;
-    }
-  }
-
-  closeModal(fileType: string): void {
-    switch (fileType) {
-      case 'mp4':
-        console.log('mp4', this.mp4);
-        this.dialogMp4?.nativeElement.removeAttribute('open');
-        break;
-      case 'png':
-        console.log('png', this.png);
-        this.dialogPng?.nativeElement.removeAttribute('open');
-        break;
-      case 'wav':
-        console.log('wav', this.wav);
-        this.dialogWav?.nativeElement.removeAttribute('open');
-        break;
-      case 'txt':
-        console.log('txt', this.txt);
-        this.dialogTxt?.nativeElement.removeAttribute('open');
-        break;
-      default:
-        break;
-    }
   }
 
   startProcess() {
@@ -142,5 +105,80 @@ export class ProjectViewComponent implements OnInit, OnDestroy {
 
   getProjectByUrl() {
     return +this.router.url.split('/')[3]
+  }
+
+  toggleFullscreen(videoElement: any) {
+    console.log('videoElement', videoElement)
+    console.log('Click!')
+    if (videoElement.requestFullscreen) {
+      videoElement.requestFullscreen();
+    } else if (videoElement.webkitRequestFullscreen) {
+      videoElement.webkitRequestFullscreen();
+    } else if (videoElement.mozRequestFullScreen) {
+      videoElement.mozRequestFullScreen();
+    } else if (videoElement.msRequestFullscreen) {
+      videoElement.msRequestFullscreen();
+    }
+  }
+
+  resetVideo(target: EventTarget | null) {
+    if (this.lastAsideClicked) {
+      if (target && (target as HTMLElement).tagName === 'ASIDE') {
+        if (this.lastAsideClicked != target) {
+          this.resetAside(this.lastAsideClicked);
+          this.transformAside(target as HTMLElement);
+        }
+      } else {
+        this.resetAside(this.lastAsideClicked);
+      }
+    }
+  }
+
+  transformAside(target: HTMLElement) {
+    const rect = target.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    const translateX = centerX - rect.left - rect.width / 2;
+    const translateY = centerY - rect.top - rect.height / 2;
+    target.style.transform = `scale(4) translate(${translateX}px, ${translateY}px)`;
+    target.style.transition = 'transform 0.5s ease-in-out';
+    target.style.zIndex = '100';
+    target.style.left = 'calc(50% - ' + target.offsetWidth / 2 + 'px)';
+    target.style.top = 'calc(50% - ' + target.offsetHeight / 2 + 'px)';
+    target.style.position = 'absolute';
+    this.lastAsideClicked = target;
+  }
+  private resetAside(target: HTMLElement) {
+    target.style.cssText = 'background: var(--primary-inverse);' +
+      ' display: flex; flex-direction: column;' +
+      ' justify-content: space-between;' +
+      ' width: calc(var(--font-size) * 8);' +
+      ' height: calc(var(--font-size) * 6);' +
+      ' transition: all 0.2s ease-in-out;' +
+      ' border: 0.2px groove var(--color);' +
+      ' border-radius: 5px;' +
+      ' box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.2);'
+  }
+  toggleAnimate(target: EventTarget | null) {
+    // if target is an aside element
+    if (target && (target as HTMLElement).tagName === 'ASIDE') {
+      const rect = (target as HTMLElement).getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const translateX = centerX - rect.left - rect.width / 2;
+      const translateY = centerY - rect.top - rect.height / 2;
+      const targetElement = target as HTMLElement;
+      if(this.lastAsideClicked && this.lastAsideClicked!==targetElement){
+        this.resetVideo(targetElement);
+      }
+      targetElement.style.transform = `scale(4) translate(${translateX}px, ${translateY}px)`;
+      targetElement.style.transition = 'transform 0.5s ease-in-out';
+      targetElement.style.zIndex = '100';
+      targetElement.style.left = 'calc(50% - ' + targetElement.offsetWidth / 2 + 'px)';
+      targetElement.style.top = 'calc(50% - ' + targetElement.offsetHeight / 2 + 'px)';
+      targetElement.style.position = 'absolute';
+      this.lastAsideClicked = targetElement;
+
+    }
   }
 }

@@ -1,4 +1,4 @@
-<main class="container-fluid">
+<main (click)="resetVideo($event.target)" class="container-fluid">
   <article>
     <header class="project--view--header">
       <div class="tools">
@@ -41,25 +41,25 @@
       <p>Empty video title are not allowed</p>
     </div>
     <div class="project--view--grid">
-      <aside *ngFor="let video of currentProject?.videos" (dblclick)="openModal('mp4')" #mp4>
-        <object type="image/svg+xml" data="/assets/Icons/project/mp4.svg" class="icon">
-          Votre navigateur ne supporte pas les SVGs
-        </object>
-        <p><b>Videos</b></p>
+      <aside (click)="toggleAnimate($event.target)" #asideVideo *ngFor="let video of currentProject?.videos; let i = index" #mp4>
+        <p><b>{{video?.name | titlecase}}</b></p>
+        <video (dblclick)="toggleFullscreen($event.target)" #videoElement controls [poster]="video.urlVideo">
+          <source src="{{video.urlVideo}}" type="video/mp4">
+        </video>
       </aside>
-      <aside *ngIf="currentProject?.images?.length" (dblclick)="openModal('png')" #png>
+      <aside  *ngIf="currentProject?.images?.length" #png>
         <object type="image/svg+xml" data="/assets/Icons/project/png.svg" class="icon">
           Votre navigateur ne supporte pas les SVGs
         </object>
         <p><b>Images</b></p>
       </aside>
-      <aside *ngIf="currentProject?.tts !== null" (dblclick)="openModal('wav')" #wav>
+      <aside *ngIf="currentProject?.tts !== null" #wav>
         <object type="image/svg+xml" data="/assets/Icons/project/wav.svg" class="icon">
           Votre navigateur ne supporte pas les SVGs
         </object>
         <p><b>TTS</b></p>
       </aside>
-      <aside *ngIf="currentProject?.responseChatGPT?.length" (dblclick)="openModal('txt')" #txt>
+      <aside *ngIf="currentProject?.responseChatGPT?.length" #txt>
         <object type="image/svg+xml" data="/assets/Icons/project/txt.svg" class="icon">
           Votre navigateur ne supporte pas les SVGs
         </object>
@@ -69,7 +69,8 @@
   </article>
 </main>
 
-<dialog #dialogTxt class="modal--dialog-txt">
+<!--
+<dialog #dialogTxt class="modal&#45;&#45;dialog-txt">
   <article>
     <h3>Confirm your action!</h3>
     <p>
@@ -83,7 +84,7 @@
     </footer>
   </article>
 </dialog>
-<dialog #dialogPng class="modal--dialog-png">
+<dialog #dialogPng class="modal&#45;&#45;dialog-png">
   <article>
     <h3>Confirm your action!</h3>
     <p>
@@ -97,7 +98,7 @@
     </footer>
   </article>
 </dialog>
-<dialog #dialogWav class="modal--dialog-wav">
+<dialog #dialogWav class="modal&#45;&#45;dialog-wav">
   <article>
     <h3>Confirm your action!</h3>
     <p>
@@ -111,9 +112,9 @@
     </footer>
   </article>
 </dialog>
-<dialog #dialogMp4 class="modal--dialog-mp4">
+<dialog #dialogMp4 class="modal&#45;&#45;dialog-mp4">
   <article>
-    <h3>Confirm your action!</h3>
+    <h3></h3>
     <p>
       Mauris non nibh vel nisi sollicitudin malesuada.
       Donec ut sagittis erat. Praesent eu eros felis.
@@ -125,3 +126,4 @@
     </footer>
   </article>
 </dialog>
+-->
