@@ -126,7 +126,6 @@
     }
   }
   aside:hover {
-    //je veux un transform qui fait les deux choses en même temps
     transform: scale(1.5);
     transition: all .2s ease-in-out;
     border: 3px solid var(--color-primary);
@@ -134,8 +133,28 @@
     border-radius: 5px;
     box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.2);
     cursor: pointer;
+    .cross {
+      display: flex;
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: var(--font-size);
+      height: var(--font-size);
+      border-radius: 50%;
+      background-color: #ff605c;
+      color: #fbfbfb;
+      font-size: 12px;
+      font-weight: bold;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.2s ease-in-out;
+      &:hover {
+        background-color: #d32f2f;
+        transition: all 0.2s ease-in-out;
+      }
+    }
   }
-
+.cross{display:none}
 }
 @media (min-width: 320px) and (max-width: 700px) {
   .project--view--grid {

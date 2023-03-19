@@ -181,4 +181,6 @@ export class ProjectViewComponent implements OnInit, OnDestroy, AfterContentChec
 
     }
   }
+
+  deleteVideo(video: Video) {}
 }
