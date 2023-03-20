@@ -9,7 +9,13 @@
   button{
     width: fit-content;
   }
-
+}
+.project--body--grid--button-delete-project{
+  background-color: #f44336;
+  border:none;
+  &:hover{
+    background-color: #d32f2f;
+  }
 }
 .project--body--grid{
   display: grid;

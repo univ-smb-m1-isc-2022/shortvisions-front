@@ -57,7 +57,7 @@
   display: none;
 }
 
-@media (min-width: 320px) and (max-width: 720px) {
+@media (min-width: 0px) and (max-width: 720px) {
   .nav--container--ul--link {
     display: none;
   }
@@ -154,5 +154,6 @@
 .nav--container--ul-hamburger-aside{
   border-radius: 5px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  background-color: var(--primary-inverse);
   z-index: 11;
 }
