@@ -20,7 +20,7 @@ export class ExpiredTokenInterceptor implements HttpInterceptor {
           switch(error.status){
             case 403:
               this.userToken.removeToken();
-              window.location.reload();
+              // window.location.reload();
               break;
           }
         });

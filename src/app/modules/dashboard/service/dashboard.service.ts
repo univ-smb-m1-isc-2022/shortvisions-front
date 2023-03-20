@@ -63,8 +63,6 @@ export class DashboardService {
 
   readonly currentProject$ = new BehaviorSubject<CompleteProject | undefined>(undefined);
 
-  readonly finalVideo$ = new BehaviorSubject<string | undefined>(undefined);
-
   constructor(private httpClient: HttpClient) {
   }
 
@@ -231,13 +229,14 @@ export class DashboardService {
   }
 
   getVideo(userId: number, projectId: number): Observable<string> {
-    const url = `${API_ROOT_URL}/user/mergeSection/${userId}/projects/${projectId}/video/merge`;
+    const url = 'http://localhost:8080/api/user/mergeSection/1/projects/1/videos/merge';
     this.loading$.next(true);
-    return this.httpClient.get(url, {responseType: 'blob'})
+    return this.httpClient.get(url)
       .pipe(
-        map((response: Blob) => URL.createObjectURL(response)),
-        tap((url: string) => this.finalVideo$.next(url)),
-        finalize(() => this.loading$.next(false))
+        map((response: any) => response.encodedVideo),
+        finalize(() => {
+          this.loading$.next(false)
+        })
       );
   }
 }
