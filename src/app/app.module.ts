@@ -13,6 +13,7 @@ import {PermissionsService, UserToken} from "./auth/auth.guard";
 import { TruncatePipe } from './pipes/truncate.pipe';
 import {HttpInterceptorProviders} from "./headers";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { FooterComponent } from './modules/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     ContentCardComponent,
     ContentCardContainerComponent,
     TruncatePipe,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

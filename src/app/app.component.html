@@ -1,9 +1,6 @@
 <app-navbar></app-navbar>
-<!--<main  >-->
 <main [@routeAnimations]="prepareRoute(outlet)" class="content">
   <router-outlet #outlet="outlet"></router-outlet>
+  <app-footer></app-footer>
 </main>
-<!--<router-outlet >-->
-<!--</router-outlet>-->
-<!--</main>-->
 
