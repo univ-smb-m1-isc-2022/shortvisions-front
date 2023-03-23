@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../../environments/environment";
 import {finalize, map, Observable, tap} from "rxjs";
 import {BehaviorSubject} from 'rxjs';
+import {Router} from "@angular/router";
 
 
 export type Project = {
@@ -63,7 +64,7 @@ export class DashboardService {
 
   readonly currentProject$ = new BehaviorSubject<CompleteProject | undefined>(undefined);
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private router:Router) {
   }
 
   getDashboardData(id: number) {
@@ -229,7 +230,7 @@ export class DashboardService {
   }
 
   getVideo(userId: number, projectId: number): Observable<string> {
-    const url = 'http://localhost:8080/api/user/mergeSection/1/projects/1/videos/merge';
+    const url = `http://localhost:8080/api/user/mergeSection/${userId}/projects/${projectId}/videos/merge`;
     this.loading$.next(true);
     return this.httpClient.get(url)
       .pipe(
@@ -238,6 +239,9 @@ export class DashboardService {
           this.loading$.next(false)
         })
       );
+  }
+  getProjectByUrl() {
+    return +this.router.url.split('/')[3]
   }
 }
 

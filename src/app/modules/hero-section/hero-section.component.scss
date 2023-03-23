@@ -60,6 +60,7 @@
   &:hover {
     background-color: #6fc5ff;
     box-shadow: 0 0 20px #6fc5ff50;
+    cursor: pointer;
   }
   &:active {
     background-color: #3d94cf;
@@ -108,21 +109,6 @@
     font-size: .62rem;
   }
 }
-@media (max-width: 767px) {
-  .hero--section--blob-left {
-    background-size: 100% 100%;
-  }
-  .hero--section--head-blob-right {
-    background-size: 33% auto;
-  }
-  .hero--section--head {
-    max-width: 330px;
-    max-height: 220px;
-  }
-  .content--heading{
-    font-size: 1rem;
-  }
-}
 @media (min-width: 424px) and (max-width: 767px) {
   .hero--section--blob-left {
     background-size: 100% 100%;
@@ -158,12 +144,14 @@
 @media (min-width: 1025px) and (max-width: 1440px) {
   .hero--section--blob-left {
     background-size: 100% 100%;
+    width: 125%;
+    height: 150%;
   }
   .hero--section--head-blob-right {
     background-size: 33% auto;
   }
   .hero--section--head {
-    bottom: 45%;
+    top: 25%;
     max-width: 900px;
     max-height: 400px;
   }
@@ -174,7 +162,7 @@
     max-width: 320px;
   }
 }
-@media (min-width: 1441px) {
+@media (min-width: 1441px) and (max-width: 1919px) {
   .hero--section--blob-left {
     background-size: 100% 100%;
     width: 125%;
@@ -182,19 +170,20 @@
   }
   .hero--section--head-blob-right {
     background-size: 33% auto;
-    width: 75%;
-    height: 85%;
   }
   .hero--section--head {
-    bottom: 30%;
-    max-width: 950px;
-    max-height: 430px;
+    top: 30%;
+    max-width: 900px;
+    max-height: 400px;
   }
   .content--heading{
-    font-size: 1.5rem;
+    font-size: 1.33rem;
   }
-  .content--description{}
+  .content--description{
+    max-width: 320px;
+  }
 }
+
 @media (min-width: 1919px) and (max-width: 4096px) {
   .hero--section--blob-left {
     background-size: 100% 100%;
@@ -206,8 +195,8 @@
   }
   .hero--section--head {
     bottom: 30%;
-    max-width: 1080px;
-    max-height: 480px;
+    max-width: 900px;
+    max-height: 500px;
   }
 }
 
