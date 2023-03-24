@@ -1,35 +1,45 @@
-.footer--section--container{
-  display:grid;
+section {
+  background-color: hsl(205deg, 30%, 15%)
+}
+
+.footer--section--container {
+  display: grid;
   grid-template-columns: repeat(10, fit-content(100%));
   place-items: baseline;
   padding-left: var(--spacing);
-  gap: calc(var(--spacing)/2);
+  gap: calc(var(--spacing) / 2);
   border-top: 1px solid var(--color-gray-300);
   padding-top: var(--spacing);
-  background-color:hsl(205deg, 30%, 15%)
-;
+
   margin-bottom: unset;
-  object{
-    max-height: 32px;
-    }
-  object:hover{
-    cursor: pointer;
-  }
-  svg{
+
+  svg {
     color: var(--primary-inverse);
-    &:hover{
+
+    &:hover {
       cursor: pointer;
     }
   }
-  a{
-    font-size: calc(var(--font-size)/1.5);
-    color: var(--primary-inverse);
-  }
-  p{
+
+  a {
+    font-size: calc(var(--font-size) / 1.5);
     color: var(--primary-inverse);
   }
 }
-.names{
-  //bg darker
-  background-color: hsl(205deg, 30%, 10%);
+
+object {
+  max-height: 32px;
+}
+
+.footer--section--container--names {
+  p {
+    color: var(--primary-inverse);
+  }
+
+  margin-bottom: unset;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding-top: var(--spacing);
+  padding-right: var(--spacing);
 }
