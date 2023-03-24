@@ -1,18 +1,35 @@
 .footer--section--container{
   display:grid;
-  grid-template-columns: repeat(8, fit-content(100%));
+  grid-template-columns: repeat(10, fit-content(100%));
   place-items: baseline;
+  padding-left: var(--spacing);
   gap: calc(var(--spacing)/2);
   border-top: 1px solid var(--color-gray-300);
   padding-top: var(--spacing);
-  background-color:var(--contrast);
-  bottom: 0;
+  background-color:hsl(205deg, 30%, 15%)
+;
   margin-bottom: unset;
   object{
-    max-height: 64px;
+    max-height: 32px;
+    }
+  object:hover{
+    cursor: pointer;
+  }
+  svg{
+    color: var(--primary-inverse);
+    &:hover{
+      cursor: pointer;
+    }
   }
   a{
     font-size: calc(var(--font-size)/1.5);
     color: var(--primary-inverse);
   }
+  p{
+    color: var(--primary-inverse);
+  }
+}
+.names{
+  //bg darker
+  background-color: hsl(205deg, 30%, 10%);
 }

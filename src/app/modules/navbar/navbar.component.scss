@@ -1,6 +1,10 @@
 .nav--container{
-//  shadow
+
   box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.2);
+  top:0;
+  position:sticky;
+  background-color:var(--primary-inverse);
+  opacity: 0.9;
 }
 .nav--container--ul--link {
   all: unset;
@@ -16,7 +20,6 @@
   max-width: 100%; /* Limite la largeur du bouton */
   transition: all 0.5s;
   -webkit-transition: all 0.5s;
-
   &:hover {
     cursor: pointer;
     background-color: #6fc5ff;
@@ -42,7 +45,7 @@
   color: #121212;
 }
 .nav--container--brand--section-vision {
-  color: #fbfbfbfb;
+  color: var(--contrast);
 }
 
 .nav--container--brand--section-logo {

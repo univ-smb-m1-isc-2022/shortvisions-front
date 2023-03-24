@@ -1,21 +1,19 @@
-<section class="hero--section--container" >
-  <header>
-    <app-navbar></app-navbar>
-  </header>
-  <body class="container-fluid">
-  <h1 class="content--heading">{{"your content making ai assistant "| titlecase}}</h1>
-  <h6 class="content--description">{{"ShortVision will help you create content for your social medias with AI"| titlecase}}</h6>
-  <button (click)="onDiscoverNowClick()" class="content--discovery--button">
-    Discover Now
-  </button>
-  <div class="hero--section--blob-left"></div>
-  <!--  <div class="hero&#45;&#45;section&#45;&#45;head"></div>-->
-  <img class="hero--section--head" src="assets/hero/Head.png" alt="head"/>
-  <div class="hero--section--head-blob-right"></div>
-  <div class="hero--section--content"></div>
-  </body>
-  <footer class="container--footer">
-    <app-content-card-container></app-content-card-container>
-    <app-footer></app-footer>
-  </footer>
-</section>
+<body class="container-fluid">
+<h1 class="content--heading">{{"your content making ai assistant "| titlecase}}</h1>
+<h6
+  class="content--description">{{"ShortVision will help you create content for your social medias with AI"| titlecase}}</h6>
+<button (click)="onDiscoverNowClick()" class="content--discovery--button">
+  Discover Now
+</button>
+
+<app-content-card-container></app-content-card-container>
+</body>
+<div class="hero--section--blob-left"></div>
+<!--  <div class="hero&#45;&#45;section&#45;&#45;head"></div>-->
+<img class="hero--section--head" src="assets/hero/Head.png" alt="head"/>
+<div class="hero--section--head-blob-right"></div>
+<div class="hero--section--content"></div>
+<footer class="container--footer">
+  <app-footer></app-footer>
+</footer>
+
