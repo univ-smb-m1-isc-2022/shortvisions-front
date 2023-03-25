@@ -78,7 +78,7 @@
         <section>
           <p><b>You can edit your text before generating voice-over</b></p>
           <app-loader *ngIf="isAppLoading" class="loader"></app-loader>
-          <p class="p--">
+          <p contenteditable="true" class="p--">
             {{currentProject?.responseChatGPT}}
           </p>
         </section>
