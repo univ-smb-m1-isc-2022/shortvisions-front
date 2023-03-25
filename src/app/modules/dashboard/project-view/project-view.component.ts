@@ -1,14 +1,8 @@
 import {
   AfterContentChecked,
-  AfterViewInit,
   Component,
-  ElementRef,
-  OnChanges,
   OnDestroy,
-  OnInit, QueryList,
-  SimpleChanges,
-  ViewChild,
-  ViewChildren
+  OnInit
 } from '@angular/core';
 import {Router} from "@angular/router";
 import {ModalService} from "./modal.service";
@@ -154,7 +148,7 @@ export class ProjectViewComponent implements OnInit, OnDestroy, AfterContentChec
     const currentTarget = target as HTMLElement
     if (this.lastAsideClicked) {
       if (target && (target as HTMLElement).tagName === 'SPAN') {
-        if (this.lastAsideClicked !=currentTarget.closest('aside')) {
+        if (this.lastAsideClicked != currentTarget.closest('aside')) {
           this.resetAside(this.lastAsideClicked);
           this.transformAside(target as HTMLElement);
         }
@@ -219,16 +213,18 @@ export class ProjectViewComponent implements OnInit, OnDestroy, AfterContentChec
 
 
   deleteVideo(videoId: number) {
-    this.dashboardService.deleteVideo(
-      this.userService.getUser().id as number,
-      this.getProjectByUrl(),
-      videoId
-    ).subscribe((response: any) => {
-        if (this.currentProject) {
-          this.currentProject.videos = this.currentProject.videos.filter((video: Video) => video.id !== videoId);
+    if (confirm('Are you sure you want to delete this video?')) {
+      this.dashboardService.deleteVideo(
+        this.userService.getUser().id as number,
+        this.getProjectByUrl(),
+        videoId
+      ).subscribe((response: any) => {
+          if (this.currentProject) {
+            this.currentProject.videos = this.currentProject.videos.filter((video: Video) => video.id !== videoId);
+          }
         }
-      }
-    );
+      );
+    }
   }
 
   nextStep() {
@@ -252,6 +248,7 @@ export class ProjectViewComponent implements OnInit, OnDestroy, AfterContentChec
       }
     )
   }
+
   generateVoiceOver() {
     this.dashboardService.generateTTS(
       this.userService.getUser().id as number,
@@ -260,11 +257,12 @@ export class ProjectViewComponent implements OnInit, OnDestroy, AfterContentChec
     ).subscribe(
       (response: any) => {
         console.log('respFromComponent', response);
-        if(this.currentProject) this.currentProject.tts = response;
+        if (this.currentProject) this.currentProject.tts = response;
 
       }
     )
   }
+
   mergeVideo() {
     this.dashboardService.mergeVideo(
       this.userService.getUser().id as number,
@@ -272,7 +270,7 @@ export class ProjectViewComponent implements OnInit, OnDestroy, AfterContentChec
     ).subscribe(
       (response: any) => {
         console.log('respFromComponent', response);
-        if(this.currentProject) this.currentProject.mergeVideo = true;
+        if (this.currentProject) this.currentProject.mergeVideo = true;
       }
     );
   }
