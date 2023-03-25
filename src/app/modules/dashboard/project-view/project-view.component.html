@@ -64,8 +64,9 @@
       </div>
       <div class="project--view--grid">
         <ng-container *ngIf="currentStep.current==steps[0]">
-          <aside (click)="toggleAnimate($event.target)" *ngFor="let video of currentProject?.videos;">
-            <span class="cross" (click)="deleteVideo(video.id)">X</span>
+          <aside *ngFor="let video of currentProject?.videos;">
+            <span class="toolsVideo cross" (click)="deleteVideo(video.id)">X</span>
+            <span class="toolsVideo expand" (click)="toggleAnimate($event)">🗗</span>
             <p><b>{{video?.name | titlecase}}</b></p>
             <video (dblclick)="toggleFullscreen($event.target)" controls [poster]="video.urlVideo">
               <source src="{{video.urlVideo}}" type="video/mp4">

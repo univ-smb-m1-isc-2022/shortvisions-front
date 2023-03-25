@@ -150,9 +150,11 @@ export class ProjectViewComponent implements OnInit, OnDestroy, AfterContentChec
   }
 
   resetVideo(target: EventTarget | null) {
+    console.log('Im reseting the aside', target);
+    const currentTarget = target as HTMLElement
     if (this.lastAsideClicked) {
-      if (target && (target as HTMLElement).tagName === 'ASIDE') {
-        if (this.lastAsideClicked != target) {
+      if (target && (target as HTMLElement).tagName === 'SPAN') {
+        if (this.lastAsideClicked !=currentTarget.closest('aside')) {
           this.resetAside(this.lastAsideClicked);
           this.transformAside(target as HTMLElement);
         }
@@ -189,28 +191,32 @@ export class ProjectViewComponent implements OnInit, OnDestroy, AfterContentChec
       ' box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.2);'
   }
 
-  toggleAnimate(target: EventTarget | null) {
-    // if target is an aside element
-    if (target && (target as HTMLElement).tagName === 'ASIDE') {
-      const rect = (target as HTMLElement).getBoundingClientRect();
+  toggleAnimate(event: Event | null) {
+    const target = (event?.currentTarget as HTMLElement).closest('aside');
+    if (target && target.tagName === 'ASIDE') {
+      console.log('I am an Aside!')
+      const asideElement = target;
+      const rect = asideElement.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
       const translateX = centerX - rect.left - rect.width / 2;
       const translateY = centerY - rect.top - rect.height / 2;
-      const targetElement = target as HTMLElement;
-      if (this.lastAsideClicked && this.lastAsideClicked !== targetElement) {
-        this.resetVideo(targetElement);
+      if (this.lastAsideClicked !== asideElement) {
+        console.log('RESET!')
+        this.resetVideo(asideElement);
       }
-      targetElement.style.transform = `scale(4) translate(${translateX}px, ${translateY}px)`;
-      targetElement.style.transition = 'transform 0.5s ease-in-out';
-      targetElement.style.zIndex = '100';
-      targetElement.style.left = 'calc(50% - ' + targetElement.offsetWidth / 2 + 'px)';
-      targetElement.style.top = 'calc(50% - ' + targetElement.offsetHeight / 2 + 'px)';
-      targetElement.style.position = 'absolute';
-      this.lastAsideClicked = targetElement;
-
+      asideElement.style.transform = `scale(4) translate(${translateX}px, ${translateY}px)`;
+      asideElement.style.transition = 'transform 0.5s ease-in-out';
+      asideElement.style.zIndex = '100';
+      asideElement.style.left = 'calc(50% - ' + asideElement.offsetWidth / 2 + 'px)';
+      asideElement.style.top = 'calc(50% - ' + asideElement.offsetHeight / 2 + 'px)';
+      asideElement.style.position = 'absolute';
+      this.lastAsideClicked = asideElement;
+      console.log('asideElement', asideElement)
+      console.log('this.lastAsideClicked', this.lastAsideClicked)
     }
   }
+
 
   deleteVideo(videoId: number) {
     this.dashboardService.deleteVideo(
