@@ -23,14 +23,12 @@ export class FinalVideoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.dashboardService.getVideo(1, 1).subscribe((base64Video: any) => {
-      console.log('base64Video', base64Video);
+    this.dashboardService.getVideo(
+      this.userService.getUser().id as number,
+      this.dashboardService.getProjectByUrl() ).subscribe((base64Video: any) => {
       const videoBlob = this.base64ToBlob(base64Video, 'video/mp4');
       this.video = videoBlob;
-      // this.videoUrl = URL.createObjectURL(videoBlob);
-    //   sanitize the url
       this.videoUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(videoBlob));
-
     });
   }
 

@@ -1,12 +1,9 @@
 <main class="container-fluid">
   <article>
-    <header>
-      <div class="project--header--container">
-        <h1>Welcome {{userName}} </h1>
-        <button (click)="onCreateProject()">Create Project</button>
-      </div>
-    </header>
-    <body>
+    <div class="project--header--container">
+      <h1>Welcome {{userName}} </h1>
+      <button (click)="onCreateProject()">Create Project</button>
+    </div>
     <div class="project--body--grid">
       <article *ngFor="let project of projects">
         <header class="project--body--grid--header">
@@ -17,10 +14,6 @@
         <!--@TODO DELETE PROJECT ONCLICK-->
       </article>
     </div>
-    </body>
-    <footer>
-      <p>My Footer</p>
-    </footer>
   </article>
 
 </main>
