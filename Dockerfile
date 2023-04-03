@@ -1,5 +1,5 @@
-FROM nginx:alpine
+FROM nginx:alpine as node
 WORKDIR /app
 COPY . .
 RUN npm install && ng build
-COPY /app/dist/short-visions-front /usr/share/nginx/html
+COPY --from=node /app/dist/short-visions-front /usr/share/nginx/html
