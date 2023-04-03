@@ -28,9 +28,14 @@
             <input formControlName="confirmPassword" type="password" id="password_confirmation" name="password"
                    placeholder="Password" minlength="8" required>
             <div class="alert alert-danger"
-                   *ngIf="registerForm.hasError('notSame') && (registerForm.get('confirmPassword')?.dirty || registerForm.get('confirmPassword')?.touched)">
+                 *ngIf="registerForm.hasError('notSame') && (registerForm.get('confirmPassword')?.dirty || registerForm.get('confirmPassword')?.touched)">
               Passwords do not match
             </div>
+            <p class="alert alert-warning" *ngIf="
+              registerForm.get('password')?.hasError('minlength') &&
+              (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)">
+            Password must contain At least 8 characters
+            </p>
           </label>
 
           <label for="email">Email address
