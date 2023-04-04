@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ShortVisionService } from './short-vision.service';
+import { YoutubeService } from './youtube.service';
 
-describe('ShortVisionService', () => {
-  let service: ShortVisionService;
+describe('YoutubeService', () => {
+  let service: YoutubeService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(ShortVisionService);
+    service = TestBed.inject(YoutubeService);
   });
 
   it('should be created', () => {
