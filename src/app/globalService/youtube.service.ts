@@ -18,6 +18,10 @@ export class YoutubeService {
       title: title,
       description: description
     }));
+    console.log('Button Pressed now posting the shit')
+    console.log('Title: ' , title)
+    console.log('Video Blob',blob)
+    console.log('FormData',formData)
     return this.httpClient.post(`${this.UPLOAD_URL}&key=${this.YoutubeAPIKey}`, formData);
   }
 }

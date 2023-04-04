@@ -14,6 +14,7 @@ import {canActivateTeam} from "../../auth/auth.guard";
 import {ModalService} from "./project-view/modal.service";
 import { LoaderComponent } from './project-view/loader/loader.component';
 import { FinalVideoComponent } from './project-view/final-video/final-video.component';
+import {YoutubeService} from "../../globalService/youtube.service";
 
 const routes: Routes = [
   {path: '', component: DashboardComponent,canActivate:[canActivateTeam], data:{animation: 'fade'}},
@@ -42,7 +43,8 @@ const routes: Routes = [
   ],
   providers: [
     DashboardService,
-    ModalService
+    ModalService,
+    YoutubeService
   ],
 })
 export class DashboardModule { }
