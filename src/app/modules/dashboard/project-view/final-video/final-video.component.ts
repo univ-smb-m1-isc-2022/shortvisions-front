@@ -3,6 +3,7 @@ import {DashboardService} from "../../service/dashboard.service";
 import {UserService} from "../../../../globalService/user.service";
 import {Router} from "@angular/router";
 import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
+import {YoutubeService} from "../../../../globalService/youtube.service";
 
 @Component({
   selector: 'app-final-video',
@@ -14,11 +15,14 @@ export class FinalVideoComponent implements OnInit {
   video!: Blob;
   videoUrl!: SafeResourceUrl;
 
+  videoName!:string;
+  videoDescription!:string;
   constructor(
     private router: Router,
     private dashboardService: DashboardService,
     private userService: UserService,
-    private domSanitizer: DomSanitizer
+    private domSanitizer: DomSanitizer,
+    private YoutubeService: YoutubeService,
   ) {
   }
 
@@ -47,5 +51,9 @@ export class FinalVideoComponent implements OnInit {
     const blob = new Blob(byteArrays, {type});
     return blob;
   }
+  pushToYoutube(){
+    this.YoutubeService.uploadVideo(this?.video, this?.videoName,this?.videoDescription)
+  }
+
 }
 
