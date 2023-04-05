@@ -230,7 +230,8 @@ export class DashboardService {
   }
 
   getVideo(userId: number, projectId: number): Observable<string> {
-    const url = `http://localhost:8080/api/user/mergeSection/${userId}/projects/${projectId}/videos/merge`;
+    // const url = `http://localhost:8080/api/user/mergeSection/${userId}/projects/${projectId}/videos/merge`;
+    const url = API_ROOT_URL + '/user/mergeSection/' + userId + '/projects/' + projectId + '/videos/merge';
     this.loading$.next(true);
     return this.httpClient.get(url)
       .pipe(
