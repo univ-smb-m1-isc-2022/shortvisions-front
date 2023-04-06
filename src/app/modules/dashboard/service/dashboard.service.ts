@@ -229,17 +229,20 @@ export class DashboardService {
       );
   }
 
-  getVideo(userId: number, projectId: number): Observable<string> {
+  getVideo(userId: number, projectId: number): string {
     // const url = `http://localhost:8080/api/user/mergeSection/${userId}/projects/${projectId}/videos/merge`;
-    const url = API_ROOT_URL + '/user/mergeSection/' + userId + '/projects/' + projectId + '/videos/merge';
+    // const url = API_ROOT_URL + '/user/mergeSection/' + userId + '/projects/' + projectId + '/videos/merge';
     this.loading$.next(true);
-    return this.httpClient.get(url)
-      .pipe(
-        map((response: any) => response.encodedVideo),
-        finalize(() => {
-          this.loading$.next(false)
-        })
-      );
+    const url2 = API_ROOT_URL.split('api')[0] + 'attachments/' + "short_output_"+projectId + '.mp4';
+    console.log('url2', url2)
+    // return this.httpClient.get(url)
+    //   .pipe(
+    //     map((response: any) => response.encodedVideo),
+    //     finalize(() => {
+    //       this.loading$.next(false)
+    //     })
+    //   );
+    return url2;
   }
   getProjectByUrl() {
     return +this.router.url.split('/')[3]

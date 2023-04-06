@@ -12,7 +12,7 @@ import {YoutubeService} from "../../../../globalService/youtube.service";
 })
 export class FinalVideoComponent implements OnInit {
 
-  video!: Blob;
+  video!: any;
   videoUrl!: SafeResourceUrl;
 
   videoName!:string;
@@ -27,13 +27,10 @@ export class FinalVideoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.dashboardService.getVideo(
+    this.videoUrl = this.dashboardService.getVideo(
       this.userService.getUser().id as number,
-      this.dashboardService.getProjectByUrl() ).subscribe((base64Video: any) => {
-      const videoBlob = this.base64ToBlob(base64Video, 'video/mp4');
-      this.video = videoBlob;
-      this.videoUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(videoBlob));
-    });
+      this.dashboardService.getProjectByUrl())
+    console.log(this.videoUrl)
   }
 
   base64ToBlob(base64: string, type: string) {

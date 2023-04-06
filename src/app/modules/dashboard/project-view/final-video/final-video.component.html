@@ -1,5 +1,7 @@
-<ng-container *ngIf="video">
-  <video [src]="videoUrl" controls type="video/mp4"></video>
+<ng-container *ngIf="videoUrl">
+  <video controls type="video/mp4">
+    <source [src]="videoUrl" type="video/mp4"/>
+  </video>
   <div>
     <label for="name">
       name
