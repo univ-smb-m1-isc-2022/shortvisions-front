@@ -233,7 +233,7 @@ export class DashboardService {
     // const url = `http://localhost:8080/api/user/mergeSection/${userId}/projects/${projectId}/videos/merge`;
     // const url = API_ROOT_URL + '/user/mergeSection/' + userId + '/projects/' + projectId + '/videos/merge';
     this.loading$.next(true);
-    const url2 = API_ROOT_URL.split('api')[0] + 'attachments/' + "short_output_"+projectId + '.mp4';
+    const url2 = API_ROOT_URL.split('/api')[0] + '/attachments/' + "short_output_"+projectId + '.mp4';
     console.log('url2', url2)
     // return this.httpClient.get(url)
     //   .pipe(
